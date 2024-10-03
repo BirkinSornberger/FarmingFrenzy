@@ -1,0 +1,1178 @@
+[gd_scene load_steps=9 format=3 uid="uid://b64uvpbx6u7tj"]
+
+[ext_resource type="Script" path="res://SceneRoot.gd" id="1_hl54y"]
+[ext_resource type="FontFile" uid="uid://bc2k4jdcvkwfs" path="res://ArcadeClassic.ttf" id="1_omann"]
+
+[sub_resource type="Animation" id="Animation_alueo"]
+resource_name = "CaratBlink"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Carat:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_bp5md"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Carat:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2o38r"]
+_data = {
+"CaratBlink": SubResource("Animation_alueo"),
+"RESET": SubResource("Animation_bp5md")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfvs6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jgjvn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xk0xc"]
+
+[node name="SceneRoot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hl54y")
+
+[node name="BlackBackground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TitleScreen" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="Title" type="RichTextLabel" parent="TitleScreen"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -151.0
+offset_top = 52.37
+offset_right = 151.0
+offset_bottom = 94.37
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.871504, 0.265264, 0.396599, 1)
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 40
+text = "FARMING FRENZY"
+
+[node name="TitleDescription" type="RichTextLabel" parent="TitleScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -284.5
+offset_top = 167.095
+offset_right = 284.5
+offset_bottom = 340.095
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.870588, 0.266667, 0.396078, 1)
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 40
+text = "						A  game  based  on 
+
+
+the  volatile  farmers  market"
+
+[node name="InspiredBy" type="RichTextLabel" parent="TitleScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -277.0
+offset_top = 425.0
+offset_right = 278.0
+offset_bottom = 534.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 40
+text = "			INSPIRED BY DRUG WARS
+CREATED BY JOHN  E. DELL (1984)"
+
+[node name="Instructions" type="RichTextLabel" parent="TitleScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -267.0
+offset_top = 588.31
+offset_right = 267.0
+offset_bottom = 651.31
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0.666667, 0.666667, 1)
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 40
+text = "DO  YOU   WANT INSTRUCTIONS  ?"
+
+[node name="Carat" type="ColorRect" parent="TitleScreen"]
+layout_mode = 0
+offset_left = 263.0
+offset_top = 626.0
+offset_right = 291.0
+offset_bottom = 629.0
+
+[node name="TitleCaratBlink" type="AnimationPlayer" parent="TitleScreen"]
+libraries = {
+"": SubResource("AnimationLibrary_2o38r")
+}
+speed_scale = 2.5
+
+[node name="Instructions" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="InstructionDetails" type="RichTextLabel" parent="Instructions"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -430.0
+offset_top = 130.0
+offset_right = 430.0
+offset_bottom = 490.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0.615686, 1, 1)
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 40
+text = "FARMING  FRENZY IS  A  GAME  BASED  ON THE AGGRESSIVE  FARMERS  MARKET. YOU  ARE  A  FARMER  AND  YOUR  GOAL IS TO  BUY & GROW CROPS  FOR  CHEAP  AND SELL FOR  A  PROFIT! BE  CAREFUL THOUGH  AS  THE  GOVERNMENT  IS  ON  THE  TRAIL OF NON-GMO  FARMERS! YOU WILL START OUT WITH  A  LOAN  AND YOUR  GOAL IS  TO  END  WITH  OVER  $1M"
+
+[node name="Instructions" type="RichTextLabel" parent="Instructions"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -214.0
+offset_top = 600.0
+offset_right = 214.0
+offset_bottom = 642.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0.666667, 0.666667, 1)
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 40
+text = "PRESS ANY KEY TO BEGIN"
+
+[node name="Carat" type="ColorRect" parent="Instructions"]
+layout_mode = 0
+offset_left = 248.22
+offset_top = 625.0
+offset_right = 276.22
+offset_bottom = 628.0
+
+[node name="InstructionCaratBlink" type="AnimationPlayer" parent="Instructions"]
+libraries = {
+"": SubResource("AnimationLibrary_2o38r")
+}
+speed_scale = 2.5
+
+[node name="Main" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Frame" type="Control" parent="Main"]
+anchors_preset = 0
+offset_left = -489.0
+offset_right = -449.0
+offset_bottom = 40.0
+
+[node name="Bottom" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_top = 395.0
+offset_right = 1017.0
+offset_bottom = 397.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="Top" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_top = 42.0
+offset_right = 1018.0
+offset_bottom = 44.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="BottomLeft" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 392.0
+offset_right = 513.0
+offset_bottom = 394.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="BottomRight" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 515.0
+offset_top = 392.0
+offset_right = 1014.0
+offset_bottom = 394.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="LeftLeft" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_top = 42.0
+offset_right = 2.0
+offset_bottom = 397.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="Left" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 90.0
+offset_right = 5.0
+offset_bottom = 394.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="RightRight" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 1016.0
+offset_top = 42.0
+offset_right = 1018.0
+offset_bottom = 397.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="Right" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 1013.0
+offset_top = 90.0
+offset_right = 1015.0
+offset_bottom = 394.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="CenterLeft" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 511.0
+offset_top = 90.0
+offset_right = 513.0
+offset_bottom = 394.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="CenterRight" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 514.0
+offset_top = 90.0
+offset_right = 516.001
+offset_bottom = 394.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopRight" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 515.0
+offset_top = 90.0
+offset_right = 1014.0
+offset_bottom = 92.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopLeft" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 90.0
+offset_right = 513.0
+offset_bottom = 92.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopMiddleBottom" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 87.0
+offset_right = 604.0
+offset_bottom = 89.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopMiddleTop" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 45.0
+offset_right = 604.0
+offset_bottom = 47.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopMiddleLeft" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 45.0
+offset_right = 425.0
+offset_bottom = 89.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopMiddleRight" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 602.0
+offset_top = 45.0
+offset_right = 604.0
+offset_bottom = 89.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopLeftLeft" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 45.0
+offset_right = 5.0
+offset_bottom = 89.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopLeftRight" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 420.0
+offset_top = 45.0
+offset_right = 422.0
+offset_bottom = 89.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopLeftBottom" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 87.0
+offset_right = 420.0
+offset_bottom = 89.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopLeftTop" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 45.0
+offset_right = 420.0
+offset_bottom = 47.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopRightLeft" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 605.0
+offset_top = 45.0
+offset_right = 607.0
+offset_bottom = 89.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopRightRight" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 1013.0
+offset_top = 45.0
+offset_right = 1015.0
+offset_bottom = 89.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopRightTop" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 605.0
+offset_top = 45.0
+offset_right = 1015.0
+offset_bottom = 47.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="TopRightBottom" type="ColorRect" parent="Main/Frame"]
+layout_mode = 0
+offset_left = 605.0
+offset_top = 87.0
+offset_right = 1015.0
+offset_bottom = 89.0
+color = Color(0.862745, 0.486275, 1, 1)
+
+[node name="MyFarm" type="Control" parent="Main"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="RichTextLabel" parent="Main/MyFarm"]
+layout_mode = 0
+offset_left = -342.0
+offset_top = 51.0
+offset_right = -228.0
+offset_bottom = 84.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "MY FARM"
+
+[node name="FarmCrops" type="VBoxContainer" parent="Main/MyFarm"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 2.125
+anchor_top = 2.735
+anchor_right = 5.975
+anchor_bottom = 7.86
+offset_left = -512.35
+offset_top = -0.5
+offset_right = -512.35
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Avocados" type="RichTextLabel" parent="Main/MyFarm/FarmCrops"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "Avocados"
+fit_content = true
+
+[node name="Tomatoes" type="RichTextLabel" parent="Main/MyFarm/FarmCrops"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "Tomatoes"
+fit_content = true
+
+[node name="Potatoes" type="RichTextLabel" parent="Main/MyFarm/FarmCrops"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "Potatoes"
+fit_content = true
+
+[node name="Cucumbers" type="RichTextLabel" parent="Main/MyFarm/FarmCrops"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "Cucumbers"
+fit_content = true
+
+[node name="Garlic" type="RichTextLabel" parent="Main/MyFarm/FarmCrops"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "Garlic"
+fit_content = true
+
+[node name="Lettuce" type="RichTextLabel" parent="Main/MyFarm/FarmCrops"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "Lettuce"
+fit_content = true
+
+[node name="Values" type="VBoxContainer" parent="Main/MyFarm"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 8.47
+anchor_top = 2.735
+anchor_right = 8.965
+anchor_bottom = 7.86
+offset_left = -511.8
+offset_top = -0.399994
+offset_right = -337.6
+offset_bottom = 0.600006
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Avocados" type="RichTextLabel" parent="Main/MyFarm/Values"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
+fit_content = true
+
+[node name="Tomatoes" type="RichTextLabel" parent="Main/MyFarm/Values"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "0
+"
+fit_content = true
+
+[node name="Potatoes" type="RichTextLabel" parent="Main/MyFarm/Values"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
+fit_content = true
+
+[node name="Cucumbers" type="RichTextLabel" parent="Main/MyFarm/Values"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
+fit_content = true
+
+[node name="Garlic" type="RichTextLabel" parent="Main/MyFarm/Values"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
+fit_content = true
+
+[node name="Lettuce" type="RichTextLabel" parent="Main/MyFarm/Values"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
+fit_content = true
+
+[node name="Bank" type="RichTextLabel" parent="Main/MyFarm"]
+layout_mode = 0
+offset_left = -427.35
+offset_top = 328.925
+offset_right = -346.35
+offset_bottom = 361.925
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "BANK"
+
+[node name="BankValue" type="RichTextLabel" parent="Main/MyFarm"]
+layout_mode = 0
+offset_left = -174.0
+offset_top = 328.925
+offset_right = 6.0
+offset_bottom = 370.925
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
+
+[node name="Loan" type="RichTextLabel" parent="Main/MyFarm"]
+layout_mode = 0
+offset_left = -427.35
+offset_top = 355.225
+offset_right = -346.35
+offset_bottom = 388.225
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "LOAN"
+
+[node name="LoanValue" type="RichTextLabel" parent="Main/MyFarm"]
+layout_mode = 0
+offset_left = -174.0
+offset_top = 355.225
+offset_right = 6.0
+offset_bottom = 397.225
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "15000"
+
+[node name="CurrentHoldings" type="Control" parent="Main"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="RichTextLabel" parent="Main/CurrentHoldings"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 51.0
+offset_right = 453.0
+offset_bottom = 84.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "CURRENT HOLDINGS"
+
+[node name="Holdings" type="VBoxContainer" parent="Main/CurrentHoldings"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 2.125
+anchor_top = 2.735
+anchor_right = 5.975
+anchor_bottom = 7.86
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Avocados" type="RichTextLabel" parent="Main/CurrentHoldings/Holdings"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "Avocados"
+fit_content = true
+
+[node name="Tomatoes" type="RichTextLabel" parent="Main/CurrentHoldings/Holdings"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "Tomatoes"
+fit_content = true
+
+[node name="Potatoes" type="RichTextLabel" parent="Main/CurrentHoldings/Holdings"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "Potatoes"
+fit_content = true
+
+[node name="Cucumbers" type="RichTextLabel" parent="Main/CurrentHoldings/Holdings"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "Cucumbers"
+fit_content = true
+
+[node name="Garlic" type="RichTextLabel" parent="Main/CurrentHoldings/Holdings"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "Garlic"
+fit_content = true
+
+[node name="Lettuce" type="RichTextLabel" parent="Main/CurrentHoldings/Holdings"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "Lettuce"
+fit_content = true
+
+[node name="Values" type="VBoxContainer" parent="Main/CurrentHoldings"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 8.47
+anchor_top = 2.735
+anchor_right = 8.965
+anchor_bottom = 7.86
+offset_left = 0.199982
+offset_top = -0.399994
+offset_right = 163.4
+offset_bottom = 0.600006
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Avocados" type="RichTextLabel" parent="Main/CurrentHoldings/Values"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
+fit_content = true
+
+[node name="Tomatoes" type="RichTextLabel" parent="Main/CurrentHoldings/Values"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "0
+"
+fit_content = true
+
+[node name="Potatoes" type="RichTextLabel" parent="Main/CurrentHoldings/Values"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
+fit_content = true
+
+[node name="Cucumbers" type="RichTextLabel" parent="Main/CurrentHoldings/Values"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
+fit_content = true
+
+[node name="Garlic" type="RichTextLabel" parent="Main/CurrentHoldings/Values"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
+fit_content = true
+
+[node name="Lettuce" type="RichTextLabel" parent="Main/CurrentHoldings/Values"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
+fit_content = true
+
+[node name="Cash" type="RichTextLabel" parent="Main/CurrentHoldings"]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 355.225
+offset_right = 168.0
+offset_bottom = 388.225
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "CASH"
+
+[node name="CashValue" type="RichTextLabel" parent="Main/CurrentHoldings"]
+layout_mode = 0
+offset_left = 339.0
+offset_top = 355.225
+offset_right = 519.0
+offset_bottom = 397.225
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "2500"
+
+[node name="Interactions" type="Control" parent="Main"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Main" type="Control" parent="Main/Interactions"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Grow" type="Control" parent="Main/Interactions/Main"]
+visible = false
+anchors_preset = 0
+offset_top = 200.53
+offset_right = 40.0
+offset_bottom = 240.53
+
+[node name="SelectGrow" type="RichTextLabel" parent="Main/Interactions/Main/Grow"]
+visible = false
+layout_mode = 0
+offset_left = -465.0
+offset_top = 392.63
+offset_right = 210.0
+offset_bottom = 437.63
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "WHAT WOULD  YOU   LIKE  TO  GROW?"
+
+[node name="GrowAmountMain" type="Control" parent="Main/Interactions/Main/Grow"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Quantity" type="HBoxContainer" parent="Main/Interactions/Main/Grow/GrowAmountMain"]
+clip_contents = true
+layout_direction = 2
+layout_mode = 0
+offset_left = -464.0
+offset_top = 394.845
+offset_right = 811.0
+offset_bottom = 439.845
+alignment = 1
+
+[node name="GrowAmount" type="RichTextLabel" parent="Main/Interactions/Main/Grow/GrowAmountMain/Quantity"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "HOW MANY CUCUMBERS WOULD YOU LIKE TO GROW?"
+
+[node name="NumberToGrow" type="LineEdit" parent="Main/Interactions/Main/Grow/GrowAmountMain/Quantity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_constants/caret_width = 0
+theme_override_fonts/font = ExtResource("1_omann")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
+expand_to_text_length = true
+context_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+flat = true
+caret_blink_interval = 1.35
+
+[node name="AffordAmount" type="RichTextLabel" parent="Main/Interactions/Main/Grow/GrowAmountMain"]
+layout_mode = 0
+offset_left = -465.0
+offset_top = 429.075
+offset_right = 210.0
+offset_bottom = 474.075
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "YOU  CAN  AFFORD  TO  GROW"
+
+[node name="AffordLabel" type="RichTextLabel" parent="Main/Interactions/Main/Grow/GrowAmountMain"]
+layout_mode = 0
+offset_left = -132.0
+offset_top = 420.47
+offset_right = 543.0
+offset_bottom = 465.47
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "(0)"
+
+[node name="Sell" type="Control" parent="Main/Interactions/Main"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SelectSell" type="RichTextLabel" parent="Main/Interactions/Main/Sell"]
+visible = false
+layout_mode = 0
+offset_left = -465.0
+offset_top = 594.0
+offset_right = 210.0
+offset_bottom = 639.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "WHAT WOULD  YOU   LIKE  TO  SELL?"
+
+[node name="SellAmountMain" type="Control" parent="Main/Interactions/Main/Sell"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Quantity" type="HBoxContainer" parent="Main/Interactions/Main/Sell/SellAmountMain"]
+clip_contents = true
+layout_direction = 2
+layout_mode = 0
+offset_left = -464.0
+offset_top = 594.0
+offset_right = 811.0
+offset_bottom = 639.0
+alignment = 1
+
+[node name="SellAmount" type="RichTextLabel" parent="Main/Interactions/Main/Sell/SellAmountMain/Quantity"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "HOW MANY CUCUMBERS WOULD YOU LIKE TO sell?"
+
+[node name="NumberToSell" type="LineEdit" parent="Main/Interactions/Main/Sell/SellAmountMain/Quantity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_constants/caret_width = 0
+theme_override_fonts/font = ExtResource("1_omann")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
+expand_to_text_length = true
+context_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+flat = true
+caret_blink_interval = 1.35
+
+[node name="CropPrices" type="RichTextLabel" parent="Main/Interactions/Main"]
+layout_mode = 0
+offset_left = -465.0
+offset_top = 411.0
+offset_right = 303.0
+offset_bottom = 456.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "HEY FARMER, THE PRICES FOR BUNDLES OF CROPS HERE ARE:"
+
+[node name="LeftCropsBox" type="HBoxContainer" parent="Main/Interactions/Main"]
+layout_mode = 0
+offset_left = -285.465
+offset_top = 449.255
+offset_right = 98.535
+offset_bottom = 587.255
+alignment = 1
+
+[node name="LeftCrops" type="VBoxContainer" parent="Main/Interactions/Main/LeftCropsBox"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Avocados" type="RichTextLabel" parent="Main/Interactions/Main/LeftCropsBox/LeftCrops"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "AVOCADOS"
+fit_content = true
+
+[node name="Tomatoes" type="RichTextLabel" parent="Main/Interactions/Main/LeftCropsBox/LeftCrops"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "TOMATOES"
+fit_content = true
+
+[node name="Potatoes" type="RichTextLabel" parent="Main/Interactions/Main/LeftCropsBox/LeftCrops"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "POTATOES"
+fit_content = true
+
+[node name="LeftPrices" type="VBoxContainer" parent="Main/Interactions/Main/LeftCropsBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="AvocadosPrice" type="RichTextLabel" parent="Main/Interactions/Main/LeftCropsBox/LeftPrices"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "1000"
+fit_content = true
+
+[node name="TomatoesPrice" type="RichTextLabel" parent="Main/Interactions/Main/LeftCropsBox/LeftPrices"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "500"
+fit_content = true
+
+[node name="PotatoesPrice" type="RichTextLabel" parent="Main/Interactions/Main/LeftCropsBox/LeftPrices"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "300"
+fit_content = true
+
+[node name="RightCropsBox" type="HBoxContainer" parent="Main/Interactions/Main"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 449.255
+offset_right = 456.0
+offset_bottom = 587.255
+alignment = 1
+
+[node name="RightCrops" type="VBoxContainer" parent="Main/Interactions/Main/RightCropsBox"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Cucumbers" type="RichTextLabel" parent="Main/Interactions/Main/RightCropsBox/RightCrops"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "CUCUMBERS"
+fit_content = true
+
+[node name="Garlic" type="RichTextLabel" parent="Main/Interactions/Main/RightCropsBox/RightCrops"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "GARLIC"
+fit_content = true
+
+[node name="Lettuce" type="RichTextLabel" parent="Main/Interactions/Main/RightCropsBox/RightCrops"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "LETTUCE"
+fit_content = true
+
+[node name="RightPrices" type="VBoxContainer" parent="Main/Interactions/Main/RightCropsBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="CucumbersPrice" type="RichTextLabel" parent="Main/Interactions/Main/RightCropsBox/RightPrices"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "250"
+fit_content = true
+
+[node name="GarlicPrice" type="RichTextLabel" parent="Main/Interactions/Main/RightCropsBox/RightPrices"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "100"
+fit_content = true
+
+[node name="LettucePrice" type="RichTextLabel" parent="Main/Interactions/Main/RightCropsBox/RightPrices"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "50"
+fit_content = true
+
+[node name="Selection" type="RichTextLabel" parent="Main/Interactions/Main"]
+layout_mode = 0
+offset_left = -465.0
+offset_top = 550.66
+offset_right = 210.0
+offset_bottom = 592.66
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "DO YOU  WISH  TO GROW, SELL OR   LEAVE?"
+
+[node name="CheapPrices" type="Control" parent="Main/Interactions"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CrazyCheapTag" type="RichTextLabel" parent="Main/Interactions/CheapPrices"]
+layout_mode = 0
+offset_left = -465.0
+offset_top = 420.0
+offset_right = 210.0
+offset_bottom = 453.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = " ARE SELLING FOR CRAZY CHEAP!"
+
+[node name="BankLoan" type="Control" parent="Main/Interactions"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LoanDeposit" type="RichTextLabel" parent="Main/Interactions/BankLoan"]
+layout_mode = 0
+offset_left = -465.0
+offset_top = 411.0
+offset_right = 210.0
+offset_bottom = 456.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "WOULD YOU  LIKE  TO  DEPOSIT MONEY IN  THE  BANK?"
+
+[node name="TransferCrops" type="Control" parent="Main/Interactions"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CropTransfer" type="RichTextLabel" parent="Main/Interactions/TransferCrops"]
+layout_mode = 0
+offset_left = -465.0
+offset_top = 411.0
+offset_right = 261.0
+offset_bottom = 456.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "WOULD YOU  LIKE  TO  TRANSFER CROPS TO YOUR FARM?"
+
+[node name="BankDeposit" type="Control" parent="Main/Interactions"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BankDeposit" type="RichTextLabel" parent="Main/Interactions/BankDeposit"]
+layout_mode = 0
+offset_left = -465.0
+offset_top = 411.0
+offset_right = 261.0
+offset_bottom = 456.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "WOULD YOU  LIKE  TO  MAKE  A  PAYMENT ON  YOUR  LOAN?"
+
+[node name="Travel" type="Control" parent="Main/Interactions"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SelectCity" type="RichTextLabel" parent="Main/Interactions/Travel"]
+layout_mode = 0
+offset_left = -465.0
+offset_top = 411.0
+offset_right = 210.0
+offset_bottom = 456.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "SELECT THE  CITY  YOU'D  LIKE  TO  TRAVEL TO:"
+
+[node name="CitiesBox" type="HBoxContainer" parent="Main/Interactions/Travel"]
+layout_mode = 0
+offset_left = -200.365
+offset_top = 466.0
+offset_right = 258.635
+offset_bottom = 604.0
+alignment = 1
+
+[node name="LeftCities" type="VBoxContainer" parent="Main/Interactions/Travel/CitiesBox"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Littleton" type="RichTextLabel" parent="Main/Interactions/Travel/CitiesBox/LeftCities"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "LITTLETON"
+fit_content = true
+
+[node name="RuralPlateau" type="RichTextLabel" parent="Main/Interactions/Travel/CitiesBox/LeftCities"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "RURAL PLATEAU"
+fit_content = true
+
+[node name="BigCity" type="RichTextLabel" parent="Main/Interactions/Travel/CitiesBox/LeftCities"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "BIG  CITY"
+fit_content = true
+
+[node name="RightCities" type="VBoxContainer" parent="Main/Interactions/Travel/CitiesBox"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MountainVille" type="RichTextLabel" parent="Main/Interactions/Travel/CitiesBox/RightCities"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "MOUNTAIN VILLE"
+fit_content = true
+
+[node name="DesertVista" type="RichTextLabel" parent="Main/Interactions/Travel/CitiesBox/RightCities"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "DESERT VISTA"
+fit_content = true
+
+[node name="TechValley" type="RichTextLabel" parent="Main/Interactions/Travel/CitiesBox/RightCities"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "TECH VALLEY"
+fit_content = true
+
+[node name="Location" type="RichTextLabel" parent="Main"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_top = 54.0
+offset_right = 100.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 24
+text = "       Tech Valley"
+fit_content = true
+scroll_active = false
+
+[connection signal="animation_finished" from="TitleScreen/TitleCaratBlink" to="." method="_on_title_carat_blink_animation_finished"]
+[connection signal="animation_finished" from="Instructions/InstructionCaratBlink" to="." method="_on_instruction_carat_blink_animation_finished"]
