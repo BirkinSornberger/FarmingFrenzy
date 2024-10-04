@@ -757,7 +757,7 @@ offset_right = 408.0
 offset_bottom = 51.0
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
-text = "20"
+text = "50"
 
 [node name="Grow" type="Control" parent="Main/Interactions/Main"]
 visible = false
@@ -776,6 +776,16 @@ offset_bottom = 437.63
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
 text = "WHAT WOULD  YOU   LIKE  TO  GROW?"
+
+[node name="OutOfSpace" type="RichTextLabel" parent="Main/Interactions/Main/Grow"]
+visible = false
+offset_left = -465.0
+offset_top = 429.0
+offset_right = 495.0
+offset_bottom = 474.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "YOU  DO  NOT  HAVE  ENOUGH  SPACE  IN  YOUR  VAN! SELL SOME  CROPS  FIRST!"
 
 [node name="GrowAmountMain" type="Control" parent="Main/Interactions/Main/Grow"]
 visible = false
@@ -1192,6 +1202,7 @@ text = "WOULD YOU  LIKE  TO  MAKE  A  DEPOSIT IN THE BANK?"
 
 [node name="BankDepositConfirm" type="RichTextLabel" parent="Main/Interactions/BankDeposit"]
 visible = false
+layout_mode = 0
 offset_left = -465.0
 offset_top = 411.0
 offset_right = 279.0
@@ -1202,6 +1213,7 @@ text = "HOW  MUCH  WOULD  YOU   LIKE  TO DEPOSIT  IN  YOUR  BANK?"
 
 [node name="BankDepositAmount" type="LineEdit" parent="Main/Interactions/BankDeposit"]
 visible = false
+layout_mode = 0
 offset_left = 189.0
 offset_top = 420.0
 offset_right = 528.0

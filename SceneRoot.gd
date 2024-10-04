@@ -7,6 +7,9 @@ extends Control
 #	Add random pop ups to buy more inventory space (van upgrades, bigger van?)
 #	Add an option to "Withdraw", then in a sub menu choose farm crops or bank money
 
+#	Figure out how to handle overflowing the loan payment. So if the user pays 13k and only owes 12k,
+#	return that 1k to their wallet, and zero out the loan
+
 #Enum selectors
 enum MenuLevel {Title, Instructions, PopUp, CheapPrices, Travel, Grow, Sell, BankLoan, TransferCrops, BankDeposit, Main}
 @onready var currentMenu = MenuLevel.Title
@@ -46,9 +49,10 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var bankDepositMain: Node = $Main/Interactions/BankDeposit/BankDeposit
 @onready var bankDepositConfirm: Node = $Main/Interactions/BankDeposit/BankDepositConfirm
 @onready var bankDepositAmount: Node = $Main/Interactions/BankDeposit/BankDepositAmount
+@onready var outOfSpace: Node = $Main/Interactions/Main/Grow/OutOfSpace
 
 #Crop Holdings
-@onready var inventorySpace: int = 20
+@onready var inventorySpace: int = 50
 @onready var totalCrops: int = 0 #Add up all crops. Add a message indicating max inventory. Use this to calculate and limit purchase qty.
 @onready var avocadoHoldings: Node = $Main/CurrentHoldings/Values/Avocados
 @onready var avocadoFarm: Node = $Main/MyFarm/Values/Avocados
@@ -109,6 +113,7 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var sellSelected: bool = false
 @onready var cropSelected: bool = false
 @onready var selectedCrop = null
+@onready var outOfSpaceVar = false
 
 func _ready() -> void:
 	titleCaratBlink.play("CaratBlink")
@@ -343,6 +348,8 @@ func bankLoanFunc():
 			loanDeposit.visible = true
 			loanDepositConfirm.visible = false
 			currentMenu = MenuLevel.PopUp
+			if int(loanValueLabel.text) == 0:
+				isLoanPaid = true
 		else:
 			loanDepositAmount.text = ""
 
@@ -423,7 +430,6 @@ func changeLocation():
 	if Input.is_action_just_pressed("r"):
 		ruralPlateauPrices()
 		location.text = ruralPlateau
-#		cheapPrices.visible = true
 		travel.visible = false
 		if randiResult == 1:
 			bankLoan.visible = true
@@ -434,7 +440,6 @@ func changeLocation():
 	if Input.is_action_just_pressed("b"):
 		bigCityPrices()
 		location.text = bigCity
-#		cheapPrices.visible = true
 		travel.visible = false
 		if randiResult == 1:
 			bankLoan.visible = true
@@ -445,7 +450,6 @@ func changeLocation():
 	if Input.is_action_just_pressed("m"):
 		mountainVillePrices()
 		location.text = mountainVille
-#		cheapPrices.visible = true
 		travel.visible = false
 		if randiResult == 1:
 			bankLoan.visible = true
@@ -456,7 +460,6 @@ func changeLocation():
 	if Input.is_action_just_pressed("d"):
 		desertVistaPrices()
 		location.text = desertVista
-#		cheapPrices.visible = true
 		travel.visible = false
 		if randiResult == 1:
 			bankLoan.visible = true
@@ -467,7 +470,6 @@ func changeLocation():
 	if Input.is_action_just_pressed("t"):
 		techValleyPrices()
 		location.text = techValley
-#		cheapPrices.visible = true
 		travel.visible = false
 		if randiResult == 1:
 			bankLoan.visible = true
@@ -492,6 +494,7 @@ func mainInteraction():
 		currentMenu = MenuLevel.Travel
 
 func growSellToMain():
+	outOfSpaceVar = false
 	sellMainNode.visible = false
 	sellMain.visible = false
 	sellSelected = false
@@ -554,6 +557,8 @@ func sellCrops():
 						var sellResult = int(avocadoHoldings.text) - int(numberToSell.text)
 						avocadoHoldings.text = str(sellResult)
 						growSellToMain()
+					else:
+						growSellToMain()
 				Crops.Tomato:
 					if int(tomatoHoldings.text) >= int(numberToSell.text):
 						var sellValue = int(numberToSell.text) * tomatoPrice
@@ -561,6 +566,8 @@ func sellCrops():
 						playerCashLabel.text = str(playerCash)
 						var sellResult = int(tomatoHoldings.text) - int(numberToSell.text)
 						tomatoHoldings.text = str(sellResult)
+						growSellToMain()
+					else:
 						growSellToMain()
 				Crops.Potato:
 					if int(potatoHoldings.text) >= int(numberToSell.text):
@@ -570,6 +577,8 @@ func sellCrops():
 						var sellResult = int(potatoHoldings.text) - int(numberToSell.text)
 						potatoHoldings.text = str(sellResult)
 						growSellToMain()
+					else:
+						growSellToMain()
 				Crops.Cucumber:
 					if int(cucumberHoldings.text) >= int(numberToSell.text):
 						var sellValue = int(numberToSell.text) * cucumberPrice
@@ -577,6 +586,8 @@ func sellCrops():
 						playerCashLabel.text = str(playerCash)
 						var sellResult = int(cucumberHoldings.text) - int(numberToSell.text)
 						cucumberHoldings.text = str(sellResult)
+						growSellToMain()
+					else:
 						growSellToMain()
 				Crops.Garlic:
 					if int(garlicHoldings.text) >= int(numberToSell.text):
@@ -586,6 +597,8 @@ func sellCrops():
 						var sellResult = int(garlicHoldings.text) - int(numberToSell.text)
 						garlicHoldings.text = str(sellResult)
 						growSellToMain()
+					else:
+						growSellToMain()
 				Crops.Lettuce:
 					if int(lettuceHoldings.text) >= int(numberToSell.text):
 						var sellValue = int(numberToSell.text) * lettucePrice
@@ -593,6 +606,8 @@ func sellCrops():
 						playerCashLabel.text = str(playerCash)
 						var sellResult = int(lettuceHoldings.text) - int(numberToSell.text)
 						lettuceHoldings.text = str(sellResult)
+						growSellToMain()
+					else:
 						growSellToMain()
 
 func growCrops():
@@ -654,6 +669,7 @@ func growCrops():
 	if growSelected:
 		numberToGrow.grab_focus()
 		if Input.is_action_just_pressed("enter"):
+			addUpCrops()
 			var requestAmount = numberToGrow.text
 			if int(requestAmount) <= int(affordValue) && inventorySpace >= int(requestAmount) + totalCrops:
 				match currentCrop:
@@ -705,8 +721,14 @@ func growCrops():
 						playerCashLabel.text = str(updateCash)
 						playerCash = updateCash
 						growSellToMain()
-			else:
-				growSellToMain()
+			elif inventorySpace <= int(requestAmount) + totalCrops:
+				outOfSpaceVar = true
+				outOfSpace.visible = true
+				growAmountMain.visible = false
+	if outOfSpaceVar:
+		if Input.is_action_just_pressed("any"):
+			outOfSpace.visible = false
+			growSellToMain()
 
 func setLabels():
 	avocadoPriceLabel.text = str(avocadoPrice)
@@ -760,7 +782,11 @@ func techValleyPrices():
 	lettucePrice = 75
 
 func addUpCrops():
-	var holding1 = int(avocadoHoldings.text) + int(tomatoHoldings.text) + int(potatoHoldings.text)
-	var holding2 = int(cucumberHoldings.text) + int(garlicHoldings.text) + int(lettuceHoldings.text)
-	var holdingTotal = holding1 + holding2
+	totalCrops = 0
+	var holding1 = 0
+	var holding2 = 0
+	var holdingTotal = 0
+	holding1 = int(avocadoHoldings.text) + int(tomatoHoldings.text) + int(potatoHoldings.text)
+	holding2 = int(cucumberHoldings.text) + int(garlicHoldings.text) + int(lettuceHoldings.text)
+	holdingTotal = holding1 + holding2
 	totalCrops = totalCrops + holdingTotal
