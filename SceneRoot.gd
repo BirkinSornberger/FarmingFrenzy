@@ -4,11 +4,11 @@ extends Control
 #	Finish the core game mechanics
 #	Add high price random events
 #	Add random major inventory loss events
-#	Add dialog to indicate inventory space
 #	Add random pop ups to buy more inventory space (van upgrades, bigger van?)
+#	Add an option to "Withdraw", then in a sub menu choose farm crops or bank money
 
 #Enum selectors
-enum MenuLevel {Title, Instructions, PopUp, CheapPrices, Travel, Grow, Sell, Main}
+enum MenuLevel {Title, Instructions, PopUp, CheapPrices, Travel, Grow, Sell, BankLoan, TransferCrops, BankDeposit, Main}
 @onready var currentMenu = MenuLevel.Title
 
 enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
@@ -36,8 +36,19 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var sellMain: Node = $Main/Interactions/Main/Sell/SellAmountMain
 @onready var sellAmount: Node = $Main/Interactions/Main/Sell/SellAmountMain/Quantity/SellAmount
 @onready var numberToSell: Node = $Main/Interactions/Main/Sell/SellAmountMain/Quantity/NumberToSell
+@onready var loanDepositAmount: Node = $Main/Interactions/BankLoan/LoanDepositAmount
+@onready var loanDeposit: Node = $Main/Interactions/BankLoan/LoanDeposit
+@onready var loanDepositConfirm: Node = $Main/Interactions/BankLoan/LoanDepositConfirm
+@onready var cropTransfer: Node = $Main/Interactions/TransferCrops/CropTransfer
+@onready var cropTransferConfirm: Node = $Main/Interactions/TransferCrops/CropTransferConfirm
+@onready var cropTransferNumber: Node = $Main/Interactions/TransferCrops/CropTransferNumber
+@onready var cropTransferAmount: Node = $Main/Interactions/TransferCrops/CropTransferAmount
+@onready var bankDepositMain: Node = $Main/Interactions/BankDeposit/BankDeposit
+@onready var bankDepositConfirm: Node = $Main/Interactions/BankDeposit/BankDepositConfirm
+@onready var bankDepositAmount: Node = $Main/Interactions/BankDeposit/BankDepositAmount
 
 #Crop Holdings
+@onready var inventorySpace: int = 20
 @onready var totalCrops: int = 0 #Add up all crops. Add a message indicating max inventory. Use this to calculate and limit purchase qty.
 @onready var avocadoHoldings: Node = $Main/CurrentHoldings/Values/Avocados
 @onready var avocadoFarm: Node = $Main/MyFarm/Values/Avocados
@@ -79,9 +90,12 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var lettucePrice: int = 50
 
 #Money Stuff
+@onready var bankValueLabel: Node = $Main/MyFarm/BankValue
 @onready var playerCashLabel: Node = $Main/CurrentHoldings/CashValue
+@onready var loanValueLabel: Node = $Main/MyFarm/LoanValue
 @onready var playerCash: int = 2500
 @onready var loanValue: int = 15000
+@onready var bankValue: int = 0
 @onready var affordValue: int = 0
 
 #Carats
@@ -93,6 +107,8 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var alreadyPoppedUp: bool = false
 @onready var growSelected: bool = false
 @onready var sellSelected: bool = false
+@onready var cropSelected: bool = false
+@onready var selectedCrop = null
 
 func _ready() -> void:
 	titleCaratBlink.play("CaratBlink")
@@ -134,29 +150,219 @@ func _process(_delta: float) -> void:
 		
 		MenuLevel.Sell:
 			sellCrops()
+		
+		MenuLevel.BankLoan:
+			bankLoanFunc()
+		
+		MenuLevel.TransferCrops:
+			transferCropsFunc()
+		
+		MenuLevel.BankDeposit:
+			bankDepositFunc()
 
 func _on_title_carat_blink_animation_finished(_anim_name: StringName) -> void:
 	titleCaratBlink.play("CaratBlink")
 func _on_instruction_carat_blink_animation_finished(_anim_name: StringName) -> void:
 	instructionCaratBlink.play("CaratBlink")
 
+func cropTransferSwitch():
+	cropTransfer.visible = true
+	cropTransferConfirm.visible = false
+	cropTransferNumber.visible = false
+	cropTransferAmount.visible = false
+	cropTransferAmount.text = ""
+
+func bankDepositFunc():
+	bankDepositMain.visible = false
+	bankDepositConfirm.visible = true
+	bankDepositAmount.visible = true
+	bankDepositAmount.grab_focus()
+	var intDeposit = int(bankDepositAmount.text)
+	if Input.is_action_just_pressed("enter"):
+		if playerCash > intDeposit:
+			playerCash -= intDeposit
+			bankValue += intDeposit
+			bankValueLabel.text = str(bankValue)
+			playerCashLabel.text = str(playerCash)
+			bankDepositAmount.text = ""
+			bankDeposit.visible = false
+			bankDepositMain.visible = true
+			bankDepositAmount.visible = false
+			bankDepositConfirm.visible = false
+			cheapPrices.visible = true
+			currentMenu = MenuLevel.CheapPrices
+		else:
+			bankDepositAmount.text = ""
+
+func transferCropsFunc():
+	var cropTransferInt = int(cropTransferAmount.text)
+	var oneShot = false
+	if !cropSelected:
+		cropTransfer.visible = false
+		cropTransferConfirm.visible = true
+		if Input.is_action_just_pressed("a"):
+			oneShot = true
+			cropSelected = true
+			selectedCrop = "a"
+		if Input.is_action_just_pressed("t"):
+			oneShot = true
+			cropSelected = true
+			selectedCrop = "t"
+		if Input.is_action_just_pressed("p"):
+			oneShot = true
+			cropSelected = true
+			selectedCrop = "p"
+		if Input.is_action_just_pressed("c"):
+			oneShot = true
+			cropSelected = true
+			selectedCrop = "c"
+		if Input.is_action_just_pressed("g"):
+			oneShot = true
+			cropSelected = true
+			selectedCrop = "g"
+		if Input.is_action_just_pressed("l"):
+			oneShot = true
+			cropSelected = true
+			selectedCrop = "l"
+	if cropSelected:
+		cropTransferNumber.visible = true
+		cropTransferAmount.visible = true
+		cropTransferAmount.grab_focus()
+		if selectedCrop == "a":
+			if oneShot:
+				cropTransferNumber.text = "HOW MANY AVOCADOS?"
+			if Input.is_action_just_pressed("enter"):
+				if cropTransferInt <= int(avocadoHoldings.text):
+					var valueStore
+					valueStore = int(avocadoHoldings.text) - cropTransferInt
+					avocadoHoldings.text = str(valueStore)
+					valueStore = int(avocadoFarm.text) + cropTransferInt
+					avocadoFarm.text = str(valueStore)
+					transferCrops.visible = false
+					bankDeposit.visible = true
+					cropTransferSwitch()
+					oneShot = false
+					cropSelected = false
+					currentMenu = MenuLevel.PopUp
+		if selectedCrop == "t":
+			if oneShot:
+				cropTransferNumber.text = "HOW MANY TOMATOES?"
+			if Input.is_action_just_pressed("enter"):
+				if cropTransferInt <= int(tomatoHoldings.text):
+					var valueStore
+					valueStore = int(tomatoHoldings.text) - cropTransferInt
+					tomatoHoldings.text = str(valueStore)
+					valueStore = int(tomatoFarm.text) + cropTransferInt
+					tomatoFarm.text = str(valueStore)
+					transferCrops.visible = false
+					bankDeposit.visible = true
+					cropTransferSwitch()
+					oneShot = false
+					cropSelected = false
+					currentMenu = MenuLevel.PopUp
+		if selectedCrop == "p":
+			if oneShot:
+				cropTransferNumber.text = "HOW MANY POTATOES?"
+			if Input.is_action_just_pressed("enter"):
+				if cropTransferInt <= int(potatoHoldings.text):
+					var valueStore
+					valueStore = int(potatoHoldings.text) - cropTransferInt
+					potatoHoldings.text = str(valueStore)
+					valueStore = int(potatoFarm.text) + cropTransferInt
+					potatoFarm.text = str(valueStore)
+					transferCrops.visible = false
+					bankDeposit.visible = true
+					cropTransferSwitch()
+					oneShot = false
+					cropSelected = false
+					currentMenu = MenuLevel.PopUp
+		if selectedCrop == "c":
+			if oneShot:
+				cropTransferNumber.text = "HOW MANY CUCUMBERS?"
+			if Input.is_action_just_pressed("enter"):
+				if cropTransferInt <= int(cucumberHoldings.text):
+					var valueStore
+					valueStore = int(cucumberHoldings.text) - cropTransferInt
+					cucumberHoldings.text = str(valueStore)
+					valueStore = int(cucumberFarm.text) + cropTransferInt
+					cucumberFarm.text = str(valueStore)
+					transferCrops.visible = false
+					bankDeposit.visible = true
+					cropTransferSwitch()
+					oneShot = false
+					cropSelected = false
+					currentMenu = MenuLevel.PopUp
+		if selectedCrop == "g":
+			if oneShot:
+				cropTransferNumber.text = "HOW MUCH GARLIC?"
+			if Input.is_action_just_pressed("enter"):
+				if cropTransferInt <= int(garlicHoldings.text):
+					var valueStore
+					valueStore = int(garlicHoldings.text) - cropTransferInt
+					garlicHoldings.text = str(valueStore)
+					valueStore = int(garlicFarm.text) + cropTransferInt
+					garlicFarm.text = str(valueStore)
+					transferCrops.visible = false
+					bankDeposit.visible = true
+					cropTransferSwitch()
+					oneShot = false
+					cropSelected = false
+					currentMenu = MenuLevel.PopUp
+		if selectedCrop == "l":
+			if oneShot:
+				cropTransferNumber.text = "HOW MUCH LETTUCE?"
+			if Input.is_action_just_pressed("enter"):
+				if cropTransferInt <= int(lettuceHoldings.text):
+					var valueStore
+					valueStore = int(lettuceHoldings.text) - cropTransferInt
+					lettuceHoldings.text = str(valueStore)
+					valueStore = int(lettuceFarm.text) + cropTransferInt
+					lettuceFarm.text = str(valueStore)
+					transferCrops.visible = false
+					bankDeposit.visible = true
+					cropTransferSwitch()
+					oneShot = false
+					cropSelected = false
+					currentMenu = MenuLevel.PopUp
+
+func bankLoanFunc():
+	loanDeposit.visible = false
+	loanDepositConfirm.visible = true
+	loanDepositAmount.visible = true
+	loanDepositAmount.grab_focus()
+	var intLoan = int(loanDepositAmount.text)
+	if Input.is_action_just_pressed("enter"):
+		if playerCash > intLoan:
+			playerCash -= intLoan
+			loanValue -= intLoan
+			loanValueLabel.text = str(loanValue)
+			playerCashLabel.text = str(playerCash)
+			bankLoan.visible = false
+			transferCrops.visible = true
+			loanDepositAmount.text = ""
+			loanDeposit.visible = true
+			loanDepositConfirm.visible = false
+			currentMenu = MenuLevel.PopUp
+		else:
+			loanDepositAmount.text = ""
+
 func popUpInteractions():
 	if bankDeposit.visible && !transferCrops.visible && !bankLoan.visible:
 		if Input.is_action_just_pressed("y"):
-			print("Give option to now pay off the loan")
+			currentMenu = MenuLevel.BankDeposit
 		elif Input.is_action_just_pressed("n"):
-			currentMenu = MenuLevel.CheapPrices
 			mainMain.visible = true
 			bankDeposit.visible = false
+			currentMenu = MenuLevel.CheapPrices
 	if !bankLoan.visible && transferCrops.visible && !bankDeposit.visible:
 		if Input.is_action_just_pressed("y"):
-			print("Give option to now transfer crops to farm")
+			currentMenu = MenuLevel.TransferCrops
 		elif Input.is_action_just_pressed("n"):
 			transferCrops.visible = false
 			bankDeposit.visible = true
 	if bankLoan.visible && !transferCrops.visible && !bankDeposit.visible && !isLoanPaid:
 		if Input.is_action_just_pressed("y"):
-			print("Give option to deposit money in the bank")
+			currentMenu = MenuLevel.BankLoan
 		elif Input.is_action_just_pressed("n"):
 			bankLoan.visible = false
 			transferCrops.visible = true
@@ -168,7 +374,6 @@ func cheapPricesFunc():
 		cheapPrices.visible = true
 		var random = randi_range(1, 3)
 		if random == 1:
-			print("Offer a random cheap price")
 			randomOffer = randi_range(1, 6)
 			if randomOffer == 1:
 				crazyCheapTag.text = "AVOCADOS" + crazyCheapTag.text
@@ -203,43 +408,73 @@ func cheapPricesFunc():
 		currentMenu = MenuLevel.Main
 
 func changeLocation():
+	var randiResult = randi_range(1, 2)
 	alreadyPoppedUp = false
 	if Input.is_action_just_pressed("l"):
 		littletonPrices()
 		location.text = littleTon
-		currentMenu = MenuLevel.CheapPrices
-		cheapPrices.visible = true
 		travel.visible = false
+		if randiResult == 1:
+			bankLoan.visible = true
+			currentMenu = MenuLevel.PopUp
+		elif randiResult == 2:
+			cheapPrices.visible = true
+			currentMenu = MenuLevel.CheapPrices
 	if Input.is_action_just_pressed("r"):
 		ruralPlateauPrices()
 		location.text = ruralPlateau
-		currentMenu = MenuLevel.CheapPrices
-		cheapPrices.visible = true
+#		cheapPrices.visible = true
 		travel.visible = false
+		if randiResult == 1:
+			bankLoan.visible = true
+			currentMenu = MenuLevel.PopUp
+		elif randiResult == 2:
+			cheapPrices.visible = true
+			currentMenu = MenuLevel.CheapPrices
 	if Input.is_action_just_pressed("b"):
 		bigCityPrices()
 		location.text = bigCity
-		currentMenu = MenuLevel.CheapPrices
-		cheapPrices.visible = true
+#		cheapPrices.visible = true
 		travel.visible = false
+		if randiResult == 1:
+			bankLoan.visible = true
+			currentMenu = MenuLevel.PopUp
+		elif randiResult == 2:
+			cheapPrices.visible = true
+			currentMenu = MenuLevel.CheapPrices
 	if Input.is_action_just_pressed("m"):
 		mountainVillePrices()
 		location.text = mountainVille
-		currentMenu = MenuLevel.CheapPrices
-		cheapPrices.visible = true
+#		cheapPrices.visible = true
 		travel.visible = false
+		if randiResult == 1:
+			bankLoan.visible = true
+			currentMenu = MenuLevel.PopUp
+		elif randiResult == 2:
+			cheapPrices.visible = true
+			currentMenu = MenuLevel.CheapPrices
 	if Input.is_action_just_pressed("d"):
 		desertVistaPrices()
 		location.text = desertVista
-		currentMenu = MenuLevel.CheapPrices
-		cheapPrices.visible = true
+#		cheapPrices.visible = true
 		travel.visible = false
+		if randiResult == 1:
+			bankLoan.visible = true
+			currentMenu = MenuLevel.PopUp
+		elif randiResult == 2:
+			cheapPrices.visible = true
+			currentMenu = MenuLevel.CheapPrices
 	if Input.is_action_just_pressed("t"):
 		techValleyPrices()
 		location.text = techValley
-		currentMenu = MenuLevel.CheapPrices
-		cheapPrices.visible = true
+#		cheapPrices.visible = true
 		travel.visible = false
+		if randiResult == 1:
+			bankLoan.visible = true
+			currentMenu = MenuLevel.PopUp
+		elif randiResult == 2:
+			cheapPrices.visible = true
+			currentMenu = MenuLevel.CheapPrices
 
 func mainInteraction():
 	setLabels()
@@ -309,6 +544,7 @@ func sellCrops():
 			sellAmount.text = "HOW MUCH LETTUCE WOULD YOU LIKE TO SELL?"
 	if sellSelected:
 		if Input.is_action_just_pressed("enter"):
+			addUpCrops()
 			match currentCrop:
 				Crops.Avocado:
 					if int(avocadoHoldings.text) >= int(numberToSell.text):
@@ -416,13 +652,12 @@ func growCrops():
 			affordLabel.text = "(" + str(affordValue) + ")"
 			growAmount.text = "HOW MUCH LETTUCE WOULD YOU LIKE TO GROW?"
 	if growSelected:
-		#Handle player input to type number of crops here
-		match currentCrop:
-			Crops.Avocado:
-				numberToGrow.grab_focus()
-				if Input.is_action_just_pressed("enter"):
-					var requestAmount = numberToGrow.text
-					if int(requestAmount) <= int(affordValue):
+		numberToGrow.grab_focus()
+		if Input.is_action_just_pressed("enter"):
+			var requestAmount = numberToGrow.text
+			if int(requestAmount) <= int(affordValue) && inventorySpace >= int(requestAmount) + totalCrops:
+				match currentCrop:
+					Crops.Avocado:
 						var updateHoldings = int(avocadoHoldings.text) + int(requestAmount)
 						avocadoHoldings.text = str(updateHoldings)
 						var purchaseCost = int(requestAmount) * int(avocadoPrice)
@@ -430,13 +665,7 @@ func growCrops():
 						playerCashLabel.text = str(updateCash)
 						playerCash = updateCash
 						growSellToMain()
-					elif int(requestAmount) >= int(affordValue):
-						growSellToMain()
-			Crops.Tomato:
-				numberToGrow.grab_focus()
-				if Input.is_action_just_pressed("enter"):
-					var requestAmount = numberToGrow.text
-					if int(requestAmount) <= int(affordValue):
+					Crops.Tomato:
 						var updateHoldings = int(tomatoHoldings.text) + int(requestAmount)
 						tomatoHoldings.text = str(updateHoldings)
 						var purchaseCost = int(requestAmount) * int(tomatoPrice)
@@ -444,13 +673,7 @@ func growCrops():
 						playerCashLabel.text = str(updateCash)
 						playerCash = updateCash
 						growSellToMain()
-					elif int(requestAmount) >= int(affordValue):
-						growSellToMain()
-			Crops.Potato:
-				numberToGrow.grab_focus()
-				if Input.is_action_just_pressed("enter"):
-					var requestAmount = numberToGrow.text
-					if int(requestAmount) <= int(affordValue):
+					Crops.Potato:
 						var updateHoldings = int(potatoHoldings.text) + int(requestAmount)
 						potatoHoldings.text = str(updateHoldings)
 						var purchaseCost = int(requestAmount) * int(potatoPrice)
@@ -458,13 +681,7 @@ func growCrops():
 						playerCashLabel.text = str(updateCash)
 						playerCash = updateCash
 						growSellToMain()
-					elif int(requestAmount) >= int(affordValue):
-						growSellToMain()
-			Crops.Cucumber:
-				numberToGrow.grab_focus()
-				if Input.is_action_just_pressed("enter"):
-					var requestAmount = numberToGrow.text
-					if int(requestAmount) <= int(affordValue):
+					Crops.Cucumber:
 						var updateHoldings = int(cucumberHoldings.text) + int(requestAmount)
 						cucumberHoldings.text = str(updateHoldings)
 						var purchaseCost = int(requestAmount) * int(cucumberPrice)
@@ -472,13 +689,7 @@ func growCrops():
 						playerCashLabel.text = str(updateCash)
 						playerCash = updateCash
 						growSellToMain()
-					elif int(requestAmount) >= int(affordValue):
-						growSellToMain()
-			Crops.Garlic:
-				numberToGrow.grab_focus()
-				if Input.is_action_just_pressed("enter"):
-					var requestAmount = numberToGrow.text
-					if int(requestAmount) <= int(affordValue):
+					Crops.Garlic:
 						var updateHoldings = int(garlicHoldings.text) + int(requestAmount)
 						garlicHoldings.text = str(updateHoldings)
 						var purchaseCost = int(requestAmount) * int(garlicPrice)
@@ -486,13 +697,7 @@ func growCrops():
 						playerCashLabel.text = str(updateCash)
 						playerCash = updateCash
 						growSellToMain()
-					elif int(requestAmount) >= int(affordValue):
-						growSellToMain()
-			Crops.Lettuce:
-				numberToGrow.grab_focus()
-				if Input.is_action_just_pressed("enter"):
-					var requestAmount = numberToGrow.text
-					if int(requestAmount) <= int(affordValue):
+					Crops.Lettuce:
 						var updateHoldings = int(lettuceHoldings.text) + int(requestAmount)
 						lettuceHoldings.text = str(updateHoldings)
 						var purchaseCost = int(requestAmount) * int(lettucePrice)
@@ -500,8 +705,8 @@ func growCrops():
 						playerCashLabel.text = str(updateCash)
 						playerCash = updateCash
 						growSellToMain()
-					elif int(requestAmount) >= int(affordValue):
-						growSellToMain()
+			else:
+				growSellToMain()
 
 func setLabels():
 	avocadoPriceLabel.text = str(avocadoPrice)

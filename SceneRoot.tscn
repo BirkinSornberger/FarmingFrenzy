@@ -734,6 +734,31 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="Inventory" type="Control" parent="Main/Interactions/Main"]
+anchors_preset = 0
+offset_left = 87.15
+offset_right = 127.15
+offset_bottom = 40.0
+
+[node name="VanCapacity" type="RichTextLabel" parent="Main/Interactions/Main/Inventory"]
+layout_mode = 0
+offset_left = 21.0
+offset_right = 357.0
+offset_bottom = 42.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "CURRENT VAN CAPACITY:"
+
+[node name="CapacityLabel" type="RichTextLabel" parent="Main/Interactions/Main/Inventory"]
+layout_mode = 0
+offset_left = 339.0
+offset_top = 9.0
+offset_right = 408.0
+offset_bottom = 51.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "20"
+
 [node name="Grow" type="Control" parent="Main/Interactions/Main"]
 visible = false
 anchors_preset = 0
@@ -1048,7 +1073,43 @@ offset_right = 210.0
 offset_bottom = 456.0
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
-text = "WOULD YOU  LIKE  TO  DEPOSIT MONEY IN  THE  BANK?"
+text = "WOULD YOU  LIKE  TO  MAKE A PAYMENT ON YOUR LOAN?"
+
+[node name="LoanDepositConfirm" type="RichTextLabel" parent="Main/Interactions/BankLoan"]
+visible = false
+layout_mode = 0
+offset_left = -465.0
+offset_top = 411.0
+offset_right = 210.0
+offset_bottom = 456.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "HOW  MUCH  WOULD  YOU   LIKE  TO PAY  ON YOUR  LOAN?"
+
+[node name="LoanDepositAmount" type="LineEdit" parent="Main/Interactions/BankLoan"]
+visible = false
+layout_mode = 0
+offset_left = 189.0
+offset_top = 420.0
+offset_right = 528.0
+offset_bottom = 451.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_constants/caret_width = 0
+theme_override_fonts/font = ExtResource("1_omann")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
+expand_to_text_length = true
+context_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+flat = true
+caret_blink_interval = 1.35
 
 [node name="TransferCrops" type="Control" parent="Main/Interactions"]
 visible = false
@@ -1066,6 +1127,53 @@ theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
 text = "WOULD YOU  LIKE  TO  TRANSFER CROPS TO YOUR FARM?"
 
+[node name="CropTransferConfirm" type="RichTextLabel" parent="Main/Interactions/TransferCrops"]
+visible = false
+layout_mode = 0
+offset_left = -465.0
+offset_top = 411.0
+offset_right = 210.0
+offset_bottom = 456.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "WHAT CROPS WOULD YOU LIKE TO TRANSFER?"
+
+[node name="CropTransferNumber" type="RichTextLabel" parent="Main/Interactions/TransferCrops"]
+visible = false
+layout_mode = 0
+offset_left = -465.0
+offset_top = 437.99
+offset_right = 210.0
+offset_bottom = 482.99
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "HOW  MANY "
+
+[node name="CropTransferAmount" type="LineEdit" parent="Main/Interactions/TransferCrops"]
+visible = false
+layout_mode = 0
+offset_left = 189.0
+offset_top = 447.0
+offset_right = 528.0
+offset_bottom = 478.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_constants/caret_width = 0
+theme_override_fonts/font = ExtResource("1_omann")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
+expand_to_text_length = true
+context_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+flat = true
+caret_blink_interval = 1.35
+
 [node name="BankDeposit" type="Control" parent="Main/Interactions"]
 visible = false
 anchors_preset = 0
@@ -1080,7 +1188,41 @@ offset_right = 261.0
 offset_bottom = 456.0
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
-text = "WOULD YOU  LIKE  TO  MAKE  A  PAYMENT ON  YOUR  LOAN?"
+text = "WOULD YOU  LIKE  TO  MAKE  A  DEPOSIT IN THE BANK?"
+
+[node name="BankDepositConfirm" type="RichTextLabel" parent="Main/Interactions/BankDeposit"]
+visible = false
+offset_left = -465.0
+offset_top = 411.0
+offset_right = 279.0
+offset_bottom = 456.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "HOW  MUCH  WOULD  YOU   LIKE  TO DEPOSIT  IN  YOUR  BANK?"
+
+[node name="BankDepositAmount" type="LineEdit" parent="Main/Interactions/BankDeposit"]
+visible = false
+offset_left = 189.0
+offset_top = 420.0
+offset_right = 528.0
+offset_bottom = 451.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_constants/caret_width = 0
+theme_override_fonts/font = ExtResource("1_omann")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
+expand_to_text_length = true
+context_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+flat = true
+caret_blink_interval = 1.35
 
 [node name="Travel" type="Control" parent="Main/Interactions"]
 visible = false
