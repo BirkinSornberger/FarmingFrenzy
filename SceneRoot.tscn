@@ -1,44 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://b64uvpbx6u7tj"]
+[gd_scene load_steps=12 format=3 uid="uid://b64uvpbx6u7tj"]
 
 [ext_resource type="Script" path="res://SceneRoot.gd" id="1_hl54y"]
 [ext_resource type="FontFile" uid="uid://bc2k4jdcvkwfs" path="res://ArcadeClassic.ttf" id="1_omann"]
-
-[sub_resource type="Animation" id="Animation_alueo"]
-resource_name = "CaratBlink"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Carat:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.233333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
-[sub_resource type="Animation" id="Animation_bp5md"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Carat:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2o38r"]
-_data = {
-"CaratBlink": SubResource("Animation_alueo"),
-"RESET": SubResource("Animation_bp5md")
-}
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfvs6"]
 
@@ -147,19 +110,6 @@ theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 40
 text = "DO  YOU   WANT INSTRUCTIONS  ?"
 
-[node name="Carat" type="ColorRect" parent="TitleScreen"]
-layout_mode = 0
-offset_left = 263.0
-offset_top = 626.0
-offset_right = 291.0
-offset_bottom = 629.0
-
-[node name="TitleCaratBlink" type="AnimationPlayer" parent="TitleScreen"]
-libraries = {
-"": SubResource("AnimationLibrary_2o38r")
-}
-speed_scale = 2.5
-
 [node name="Instructions" type="Control" parent="."]
 visible = false
 layout_mode = 1
@@ -201,19 +151,6 @@ theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 40
 text = "PRESS ANY KEY TO BEGIN"
 
-[node name="Carat" type="ColorRect" parent="Instructions"]
-layout_mode = 0
-offset_left = 248.22
-offset_top = 625.0
-offset_right = 276.22
-offset_bottom = 628.0
-
-[node name="InstructionCaratBlink" type="AnimationPlayer" parent="Instructions"]
-libraries = {
-"": SubResource("AnimationLibrary_2o38r")
-}
-speed_scale = 2.5
-
 [node name="Main" type="Control" parent="."]
 visible = false
 layout_mode = 1
@@ -224,6 +161,31 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 40.0
 grow_horizontal = 2
+
+[node name="Inventory" type="Control" parent="Main"]
+anchors_preset = 0
+offset_left = 87.15
+offset_right = 127.15
+offset_bottom = 40.0
+
+[node name="VanCapacity" type="RichTextLabel" parent="Main/Inventory"]
+layout_mode = 0
+offset_left = 21.0
+offset_right = 357.0
+offset_bottom = 42.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "CURRENT VAN CAPACITY:"
+
+[node name="CapacityLabel" type="RichTextLabel" parent="Main/Inventory"]
+layout_mode = 0
+offset_left = 339.0
+offset_top = 9.0
+offset_right = 408.0
+offset_bottom = 51.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "50"
 
 [node name="Frame" type="Control" parent="Main"]
 anchors_preset = 0
@@ -746,31 +708,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Inventory" type="Control" parent="Main/Interactions/Main"]
-anchors_preset = 0
-offset_left = 87.15
-offset_right = 127.15
-offset_bottom = 40.0
-
-[node name="VanCapacity" type="RichTextLabel" parent="Main/Interactions/Main/Inventory"]
-layout_mode = 0
-offset_left = 21.0
-offset_right = 357.0
-offset_bottom = 42.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
-theme_override_font_sizes/normal_font_size = 30
-text = "CURRENT VAN CAPACITY:"
-
-[node name="CapacityLabel" type="RichTextLabel" parent="Main/Interactions/Main/Inventory"]
-layout_mode = 0
-offset_left = 339.0
-offset_top = 9.0
-offset_right = 408.0
-offset_bottom = 51.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
-theme_override_font_sizes/normal_font_size = 30
-text = "50"
-
 [node name="Sell" type="Control" parent="Main/Interactions/Main"]
 visible = false
 anchors_preset = 0
@@ -789,7 +726,6 @@ theme_override_font_sizes/normal_font_size = 30
 text = "WHAT WOULD  YOU   LIKE  TO  SELL?"
 
 [node name="SellAmountMain" type="Control" parent="Main/Interactions/Main/Sell"]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -823,7 +759,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
-expand_to_text_length = true
+max_length = 6
 context_menu_enabled = false
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
@@ -896,7 +832,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
-expand_to_text_length = true
+max_length = 6
 context_menu_enabled = false
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
@@ -1000,7 +936,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
-expand_to_text_length = true
+max_length = 6
 context_menu_enabled = false
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
@@ -1044,7 +980,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
-expand_to_text_length = true
+max_length = 6
 context_menu_enabled = false
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
@@ -1252,7 +1188,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
-expand_to_text_length = true
+max_length = 6
 context_menu_enabled = false
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
@@ -1315,7 +1251,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
-expand_to_text_length = true
+max_length = 6
 context_menu_enabled = false
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
@@ -1355,9 +1291,9 @@ text = "HOW  MUCH  WOULD  YOU   LIKE  TO DEPOSIT  IN  YOUR  BANK?"
 [node name="BankDepositAmount" type="LineEdit" parent="Main/Interactions/BankDeposit"]
 visible = false
 layout_mode = 0
-offset_left = 189.0
+offset_left = 254.0
 offset_top = 420.0
-offset_right = 528.0
+offset_right = 525.0
 offset_bottom = 451.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -1367,7 +1303,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
-expand_to_text_length = true
+max_length = 6
 context_menu_enabled = false
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
@@ -1460,12 +1396,28 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="LossEventTag" type="RichTextLabel" parent="Main/Interactions/LossEvent"]
+layout_mode = 0
 offset_left = -465.0
 offset_top = 420.0
-offset_right = 210.0
-offset_bottom = 453.0
+offset_right = 522.0
+offset_bottom = 495.0
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
+
+[node name="VanUpgrade" type="Control" parent="Main/Interactions"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UpgradePrompt" type="RichTextLabel" parent="Main/Interactions/VanUpgrade"]
+offset_left = -465.0
+offset_top = 411.0
+offset_right = 387.0
+offset_bottom = 456.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "WOULD  YOU   LIKE  TO  UPGRADE  YOUR  VAN  STORAGE  FOR  1000?"
 
 [node name="Location" type="RichTextLabel" parent="Main"]
 layout_mode = 1
@@ -1528,6 +1480,22 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_2bjkp")
 toggle_mode = true
 text = "Change UI Color"
 
-[connection signal="animation_finished" from="TitleScreen/TitleCaratBlink" to="." method="_on_title_carat_blink_animation_finished"]
-[connection signal="animation_finished" from="Instructions/InstructionCaratBlink" to="." method="_on_instruction_carat_blink_animation_finished"]
+[node name="TextColor" type="Button" parent="ChangeColor"]
+layout_mode = 0
+offset_left = 678.0
+offset_top = 657.0
+offset_right = 857.0
+offset_bottom = 688.0
+theme_override_fonts/font = ExtResource("1_omann")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bjrpw")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_dphse")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_il7y1")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_m6dnj")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_8anum")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_2bjkp")
+toggle_mode = true
+text = "Change Text Color"
+
 [connection signal="toggled" from="ChangeColor/UIColor" to="." method="_on_ui_color_toggled"]
+[connection signal="toggled" from="ChangeColor/TextColor" to="." method="_on_text_color_toggled"]

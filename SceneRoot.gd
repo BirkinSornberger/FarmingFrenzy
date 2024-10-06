@@ -1,20 +1,12 @@
 extends Control
 
 #To do:
-#	Add random pop ups to buy more inventory space (van upgrades, bigger van?)
-
-#	Labels for loss events run off the screen!
-#	LineEdit for money to deposit in bank clips into the "bank" text
-
-#	Figure out how to handle overflowing the loan payment. So if the user pays 13k and only owes 12k,
-#	return that 1k to their wallet, and zero out the line
-
 #	Final Step: Add a date & 30 day system. Each turn increases the day by 1. At the end of 30 days,
 #	add up money and crops value at average price, then display in a "high score" located in a
 #	Godot resource or something, just some way to persistently save the high score.
 
 #Enum selectors
-enum MenuLevel {Title, Instructions, PopUp, CheapPrices, LossEvent, Travel, Grow, Sell, Withdraw, BankLoan, TransferCrops, BankDeposit, Main}
+enum MenuLevel {Title, Instructions, PopUp, CheapPrices, VanUpgrade, LossEvent, Travel, Grow, Sell, Withdraw, BankLoan, TransferCrops, BankDeposit, Main}
 @onready var currentMenu = MenuLevel.Title
 
 enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
@@ -65,6 +57,9 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var withdrawMoneyAmount: Node = $Main/Interactions/Main/Withdraw/Money/Quantity/MoneyWithdraw
 @onready var lossEvent: Node = $Main/Interactions/LossEvent
 @onready var lossEventTag: Node = $Main/Interactions/LossEvent/LossEventTag
+@onready var vanCapacityLabel: Node = $Main/Inventory/CapacityLabel
+@onready var vanUpgrade: Node = $Main/Interactions/VanUpgrade
+@onready var vanUpgradePrompt: Node = $Main/Interactions/VanUpgrade/UpgradePrompt
 
 #Crop Holdings
 @onready var inventorySpace: int = 50
@@ -123,10 +118,6 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var bankValue: int = 0
 @onready var affordValue: int = 0
 
-#Carats
-@onready var titleCaratBlink: Node = $TitleScreen/TitleCaratBlink
-@onready var instructionCaratBlink: Node = $Instructions/InstructionCaratBlink
-
 #Tracking
 @onready var isLoanPaid: bool = false
 @onready var alreadyPoppedUp: bool = false
@@ -141,21 +132,23 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var toggled = false
 @onready var colorSelector = false
 @onready var selectedColor
-
-func _ready() -> void:
-	titleCaratBlink.play("CaratBlink")
+@onready var vanUpgradeVar = false
+@onready var textColorSelector = false
 
 func _process(_delta: float) -> void:
 	if colorSelector:
 		selectedColor = $ChangeColor/ColorPicker.color
 		$ChangeColor/ColorRect.color = selectedColor
 		frameColors()
+	if textColorSelector:
+		selectedColor = $ChangeColor/ColorPicker.color
+		$ChangeColor/ColorRect.color = selectedColor
+		textColor()
 
 	match currentMenu:
 		MenuLevel.Title:
 			if Input.is_action_just_pressed("y"):
 				currentMenu = MenuLevel.Instructions
-				instructionCaratBlink.play("CaratBlink")
 			elif Input.is_action_just_pressed("n"):
 				currentMenu = MenuLevel.PopUp
 				bankLoan.visible = true
@@ -199,6 +192,33 @@ func _process(_delta: float) -> void:
 		
 		MenuLevel.BankDeposit:
 			bankDepositFunc()
+			
+		MenuLevel.VanUpgrade:
+			if vanUpgradeVar:
+				if Input.is_action_just_pressed("any"):
+					vanUpgradePrompt.text = "WOULD  YOU   LIKE  TO  UPGRADE  YOUR  VAN  STORAGE  FOR  1000?"
+					vanUpgradeVar = false
+					mainMain.visible = true
+					vanUpgrade.visible = false
+					currentMenu = MenuLevel.Main
+			if !vanUpgradeVar:
+				if Input.is_action_just_pressed("y"):
+					if playerCash >= 1000:
+						inventorySpace += 10
+						playerCash -= 1000
+						playerCashLabel.text = str(playerCash)
+						vanCapacityLabel.text = str(inventorySpace)
+						mainMain.visible = true
+						vanUpgrade.visible = false
+						currentMenu = MenuLevel.Main
+					elif playerCash < 1000:
+						vanUpgradePrompt.text = "YOU CANNOT AFFORD THIS UPGRADE!"
+						vanUpgradeVar = true
+				if Input.is_action_just_pressed("n"):
+					vanUpgradeVar = false
+					mainMain.visible = true
+					vanUpgrade.visible = false
+					currentMenu = MenuLevel.Main
 
 func withdrawFunc():
 	if withdrawSelected:
@@ -317,7 +337,6 @@ func withdrawFunc():
 			var intBank = int(bankValueLabel.text)
 			if Input.is_action_just_pressed("enter"):
 				if intBank >= intMoney:
-					print("Withdraw money")
 					intBank = intBank - intMoney
 					bankValueLabel.text = str(intBank)
 					withdraw.visible = false
@@ -329,7 +348,6 @@ func withdrawFunc():
 					alreadyPoppedUp = false
 					currentMenu = MenuLevel.CheapPrices
 				else:
-					print("Not enough money")
 					withdraw.visible = false
 					withdrawMoneyMain.visible = false
 					withdrawSelected = false
@@ -338,11 +356,6 @@ func withdrawFunc():
 					cheapPrices.visible = true
 					alreadyPoppedUp = false
 					currentMenu = MenuLevel.CheapPrices
-
-func _on_title_carat_blink_animation_finished(_anim_name: StringName) -> void:
-	titleCaratBlink.play("CaratBlink")
-func _on_instruction_carat_blink_animation_finished(_anim_name: StringName) -> void:
-	instructionCaratBlink.play("CaratBlink")
 
 func cropTransferSwitch():
 	cropTransfer.visible = true
@@ -511,7 +524,7 @@ func bankLoanFunc():
 	loanDepositAmount.grab_focus()
 	var intLoan = int(loanDepositAmount.text)
 	if Input.is_action_just_pressed("enter"):
-		if playerCash > intLoan:
+		if playerCash > intLoan && intLoan <= loanValue:
 			playerCash -= intLoan
 			loanValue -= intLoan
 			loanValueLabel.text = str(loanValue)
@@ -524,6 +537,31 @@ func bankLoanFunc():
 			currentMenu = MenuLevel.PopUp
 			if int(loanValueLabel.text) == 0:
 				isLoanPaid = true
+		if playerCash > intLoan && intLoan >= loanValue:
+			playerCash -= intLoan
+			playerCash += intLoan - loanValue
+			loanValue = 0
+			loanValueLabel.text = str(loanValue)
+			playerCashLabel.text = str(playerCash)
+			isLoanPaid = true
+			bankLoan.visible = false
+			transferCrops.visible = true
+			loanDepositAmount.text = ""
+			loanDeposit.visible = true
+			loanDepositConfirm.visible = false
+			currentMenu = MenuLevel.PopUp
+		if playerCash > intLoan && intLoan == loanValue:
+			playerCash -= intLoan
+			loanValue = 0
+			loanValueLabel.text = str(loanValue)
+			playerCashLabel.text = str(playerCash)
+			isLoanPaid = true
+			bankLoan.visible = false
+			transferCrops.visible = true
+			loanDepositAmount.text = ""
+			loanDeposit.visible = true
+			loanDepositConfirm.visible = false
+			currentMenu = MenuLevel.PopUp
 		else:
 			loanDepositAmount.text = ""
 
@@ -623,7 +661,12 @@ func cheapPricesFunc():
 				lossEventTag.text = "A cold front moved in and froze some of your crops!"
 				smallLoss()
 			updateHoldings()
-		elif random == 4 or 5 or 6 or 7 or 8:
+		elif random == 4:
+			cheapPrices.visible = false
+			vanUpgrade.visible = true
+			alreadyPoppedUp = false
+			currentMenu = MenuLevel.VanUpgrade
+		elif random == 5 or 6 or 7 or 8:
 			currentMenu = MenuLevel.Main
 			cheapPrices.visible = false
 			mainMain.visible = true
@@ -633,6 +676,7 @@ func cheapPricesFunc():
 		lossEvent.visible = false
 		cheapPrices.visible = false
 		mainMain.visible = true
+		alreadyPoppedUp = false
 		currentMenu = MenuLevel.Main
 
 func updateHoldings():
@@ -1074,13 +1118,65 @@ func frameColors():
 	$Main/Frame/TopRightTop.color = selectedColor
 	$Main/Frame/TopRightBottom.color = selectedColor
 
+func textColor():
+	$Main/Inventory/VanCapacity.add_theme_color_override("default_color", selectedColor)
+	$Main/Inventory/CapacityLabel.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/Title.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/FarmCrops/Avocados.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/FarmCrops/Tomatoes.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/FarmCrops/Potatoes.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/FarmCrops/Cucumbers.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/FarmCrops/Garlic.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/FarmCrops/Lettuce.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/Values/Avocados.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/Values/Tomatoes.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/Values/Potatoes.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/Values/Cucumbers.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/Values/Garlic.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/Values/Lettuce.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/Bank.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/BankValue.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/Loan.add_theme_color_override("default_color", selectedColor)
+	$Main/MyFarm/LoanValue.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Title.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Holdings/Avocados.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Holdings/Tomatoes.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Holdings/Potatoes.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Holdings/Cucumbers.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Holdings/Garlic.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Holdings/Lettuce.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Values/Avocados.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Values/Tomatoes.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Values/Potatoes.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Values/Cucumbers.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Values/Garlic.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Values/Lettuce.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/Cash.add_theme_color_override("default_color", selectedColor)
+	$Main/CurrentHoldings/CashValue.add_theme_color_override("default_color", selectedColor)
+	$Main/Location.add_theme_color_override("default_color", selectedColor)
+
 
 func _on_ui_color_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		$ChangeColor/ColorRect.visible = true
 		$ChangeColor/ColorPicker.visible = true
+		$ChangeColor/TextColor.disabled = true
 		colorSelector = true
 	if !toggled_on:
 		$ChangeColor/ColorRect.visible = false
 		$ChangeColor/ColorPicker.visible = false
+		$ChangeColor/TextColor.disabled = false
 		colorSelector = false
+
+func _on_text_color_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		$ChangeColor/ColorRect.visible = true
+		$ChangeColor/ColorPicker.visible = true
+		$ChangeColor/UIColor.disabled = true
+		textColorSelector = true
+
+	if !toggled_on:
+		$ChangeColor/ColorRect.visible = false
+		$ChangeColor/ColorPicker.visible = false
+		$ChangeColor/UIColor.disabled = false
+		textColorSelector = false
