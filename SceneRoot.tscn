@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b64uvpbx6u7tj"]
+[gd_scene load_steps=15 format=3 uid="uid://b64uvpbx6u7tj"]
 
 [ext_resource type="Script" path="res://SceneRoot.gd" id="1_hl54y"]
 [ext_resource type="FontFile" uid="uid://bc2k4jdcvkwfs" path="res://ArcadeClassic.ttf" id="1_omann"]
@@ -45,6 +45,18 @@ _data = {
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jgjvn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xk0xc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bjrpw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dphse"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_il7y1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m6dnj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8anum"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2bjkp"]
 
 [node name="SceneRoot" type="Control"]
 layout_mode = 3
@@ -759,6 +771,68 @@ theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
 text = "50"
 
+[node name="Sell" type="Control" parent="Main/Interactions/Main"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SelectSell" type="RichTextLabel" parent="Main/Interactions/Main/Sell"]
+visible = false
+layout_mode = 0
+offset_left = -465.0
+offset_top = 594.0
+offset_right = 210.0
+offset_bottom = 639.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "WHAT WOULD  YOU   LIKE  TO  SELL?"
+
+[node name="SellAmountMain" type="Control" parent="Main/Interactions/Main/Sell"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Quantity" type="HBoxContainer" parent="Main/Interactions/Main/Sell/SellAmountMain"]
+clip_contents = true
+layout_direction = 2
+layout_mode = 0
+offset_left = -464.0
+offset_top = 594.0
+offset_right = 811.0
+offset_bottom = 639.0
+alignment = 1
+
+[node name="SellAmount" type="RichTextLabel" parent="Main/Interactions/Main/Sell/SellAmountMain/Quantity"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "HOW MANY CUCUMBERS WOULD YOU LIKE TO sell?"
+
+[node name="NumberToSell" type="LineEdit" parent="Main/Interactions/Main/Sell/SellAmountMain/Quantity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_constants/caret_width = 0
+theme_override_fonts/font = ExtResource("1_omann")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
+expand_to_text_length = true
+context_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+flat = true
+caret_blink_interval = 1.35
+
 [node name="Grow" type="Control" parent="Main/Interactions/Main"]
 visible = false
 anchors_preset = 0
@@ -779,6 +853,7 @@ text = "WHAT WOULD  YOU   LIKE  TO  GROW?"
 
 [node name="OutOfSpace" type="RichTextLabel" parent="Main/Interactions/Main/Grow"]
 visible = false
+layout_mode = 0
 offset_left = -465.0
 offset_top = 429.0
 offset_right = 495.0
@@ -851,49 +926,115 @@ theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
 text = "(0)"
 
-[node name="Sell" type="Control" parent="Main/Interactions/Main"]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SelectSell" type="RichTextLabel" parent="Main/Interactions/Main/Sell"]
+[node name="SelectGrow" type="RichTextLabel" parent="Main/Interactions/Main/Grow/GrowAmountMain"]
 visible = false
 layout_mode = 0
 offset_left = -465.0
-offset_top = 594.0
+offset_top = 392.63
 offset_right = 210.0
-offset_bottom = 639.0
+offset_bottom = 437.63
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
-text = "WHAT WOULD  YOU   LIKE  TO  SELL?"
+text = "WHAT WOULD  YOU   LIKE  TO  GROW?"
 
-[node name="SellAmountMain" type="Control" parent="Main/Interactions/Main/Sell"]
+[node name="Withdraw" type="Control" parent="Main/Interactions/Main"]
 visible = false
-layout_mode = 3
+anchors_preset = 0
+offset_top = 200.53
+offset_right = 40.0
+offset_bottom = 240.53
+
+[node name="SelectWithdraw" type="RichTextLabel" parent="Main/Interactions/Main/Withdraw"]
+visible = false
+layout_mode = 0
+offset_left = -465.0
+offset_top = 395.0
+offset_right = 210.0
+offset_bottom = 440.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "WOULD  YOU   LIKE  TO  WITHDRAW  CROPS  OR  MONEY?"
+
+[node name="Crop" type="Control" parent="Main/Interactions/Main/Withdraw"]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Quantity" type="HBoxContainer" parent="Main/Interactions/Main/Sell/SellAmountMain"]
+[node name="SelectCrop" type="RichTextLabel" parent="Main/Interactions/Main/Withdraw/Crop"]
+layout_mode = 0
+offset_left = -465.0
+offset_top = 395.0
+offset_right = 210.0
+offset_bottom = 440.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "WHICH  CROP  TO  WITHDRAW?"
+
+[node name="Quantity" type="HBoxContainer" parent="Main/Interactions/Main/Withdraw/Crop"]
+visible = false
 clip_contents = true
 layout_direction = 2
 layout_mode = 0
 offset_left = -464.0
-offset_top = 594.0
+offset_top = 423.0
 offset_right = 811.0
-offset_bottom = 639.0
+offset_bottom = 468.0
 alignment = 1
 
-[node name="SellAmount" type="RichTextLabel" parent="Main/Interactions/Main/Sell/SellAmountMain/Quantity"]
+[node name="CropAmount" type="RichTextLabel" parent="Main/Interactions/Main/Withdraw/Crop/Quantity"]
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
-text = "HOW MANY CUCUMBERS WOULD YOU LIKE TO sell?"
+text = "HOW  MANY"
 
-[node name="NumberToSell" type="LineEdit" parent="Main/Interactions/Main/Sell/SellAmountMain/Quantity"]
+[node name="CropsWithdraw" type="LineEdit" parent="Main/Interactions/Main/Withdraw/Crop/Quantity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_constants/caret_width = 0
+theme_override_fonts/font = ExtResource("1_omann")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xk0xc")
+expand_to_text_length = true
+context_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+flat = true
+caret_blink_interval = 1.35
+
+[node name="Money" type="Control" parent="Main/Interactions/Main/Withdraw"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Quantity" type="HBoxContainer" parent="Main/Interactions/Main/Withdraw/Money"]
+clip_contents = true
+layout_direction = 2
+layout_mode = 0
+offset_left = -464.0
+offset_top = 423.0
+offset_right = 811.0
+offset_bottom = 468.0
+alignment = 1
+
+[node name="MoneyAmount" type="RichTextLabel" parent="Main/Interactions/Main/Withdraw/Money/Quantity"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+text = "HOW  MUCH  MONEY  WOULD  YOU  LIKE  TO  WITHDRAW?"
+
+[node name="MoneyWithdraw" type="LineEdit" parent="Main/Interactions/Main/Withdraw/Money/Quantity"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -1051,7 +1192,7 @@ offset_right = 210.0
 offset_bottom = 592.66
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
-text = "DO YOU  WISH  TO GROW, SELL OR   LEAVE?"
+text = "DO YOU  WISH  TO GROW, SELL,  LEAVE  OR   WITHDRAW?"
 
 [node name="CheapPrices" type="Control" parent="Main/Interactions"]
 visible = false
@@ -1312,6 +1453,20 @@ theme_override_font_sizes/normal_font_size = 30
 text = "TECH VALLEY"
 fit_content = true
 
+[node name="LossEvent" type="Control" parent="Main/Interactions"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LossEventTag" type="RichTextLabel" parent="Main/Interactions/LossEvent"]
+offset_left = -465.0
+offset_top = 420.0
+offset_right = 210.0
+offset_bottom = 453.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 30
+
 [node name="Location" type="RichTextLabel" parent="Main"]
 layout_mode = 1
 anchors_preset = 5
@@ -1328,5 +1483,51 @@ text = "       Tech Valley"
 fit_content = true
 scroll_active = false
 
+[node name="ChangeColor" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="ChangeColor"]
+visible = false
+layout_mode = 0
+offset_left = 324.0
+offset_top = 405.0
+offset_right = 633.0
+offset_bottom = 676.0
+color = Color(0.886275, 0.576471, 1, 1)
+
+[node name="ColorPicker" type="ColorPicker" parent="ChangeColor"]
+visible = false
+layout_mode = 0
+offset_left = 330.0
+offset_top = 408.25
+offset_right = 628.0
+offset_bottom = 680.25
+color = Color(0.87451, 0.521569, 1, 1)
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+
+[node name="UIColor" type="Button" parent="ChangeColor"]
+layout_mode = 0
+offset_left = 861.0
+offset_top = 657.0
+offset_right = 1018.0
+offset_bottom = 688.0
+theme_override_fonts/font = ExtResource("1_omann")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bjrpw")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_dphse")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_il7y1")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_m6dnj")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_8anum")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_2bjkp")
+toggle_mode = true
+text = "Change UI Color"
+
 [connection signal="animation_finished" from="TitleScreen/TitleCaratBlink" to="." method="_on_title_carat_blink_animation_finished"]
 [connection signal="animation_finished" from="Instructions/InstructionCaratBlink" to="." method="_on_instruction_carat_blink_animation_finished"]
+[connection signal="toggled" from="ChangeColor/UIColor" to="." method="_on_ui_color_toggled"]

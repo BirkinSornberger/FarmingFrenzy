@@ -1,17 +1,20 @@
 extends Control
 
 #To do:
-#	Finish the core game mechanics
-#	Add high price random events
-#	Add random major inventory loss events
 #	Add random pop ups to buy more inventory space (van upgrades, bigger van?)
-#	Add an option to "Withdraw", then in a sub menu choose farm crops or bank money
+
+#	Labels for loss events run off the screen!
+#	LineEdit for money to deposit in bank clips into the "bank" text
 
 #	Figure out how to handle overflowing the loan payment. So if the user pays 13k and only owes 12k,
-#	return that 1k to their wallet, and zero out the loan
+#	return that 1k to their wallet, and zero out the line
+
+#	Final Step: Add a date & 30 day system. Each turn increases the day by 1. At the end of 30 days,
+#	add up money and crops value at average price, then display in a "high score" located in a
+#	Godot resource or something, just some way to persistently save the high score.
 
 #Enum selectors
-enum MenuLevel {Title, Instructions, PopUp, CheapPrices, Travel, Grow, Sell, BankLoan, TransferCrops, BankDeposit, Main}
+enum MenuLevel {Title, Instructions, PopUp, CheapPrices, LossEvent, Travel, Grow, Sell, Withdraw, BankLoan, TransferCrops, BankDeposit, Main}
 @onready var currentMenu = MenuLevel.Title
 
 enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
@@ -50,6 +53,18 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var bankDepositConfirm: Node = $Main/Interactions/BankDeposit/BankDepositConfirm
 @onready var bankDepositAmount: Node = $Main/Interactions/BankDeposit/BankDepositAmount
 @onready var outOfSpace: Node = $Main/Interactions/Main/Grow/OutOfSpace
+@onready var withdraw: Node = $Main/Interactions/Main/Withdraw
+@onready var selectWithdraw: Node = $Main/Interactions/Main/Withdraw/SelectWithdraw
+@onready var withdrawCropsMain: Node = $Main/Interactions/Main/Withdraw/Crop
+@onready var withdrawMoneyMain: Node = $Main/Interactions/Main/Withdraw/Money
+@onready var withdrawSelectCrop: Node = $Main/Interactions/Main/Withdraw/Crop/SelectCrop
+@onready var withdrawCropContainer: Node = $Main/Interactions/Main/Withdraw/Crop/Quantity
+@onready var withdrawCropAmount: Node = $Main/Interactions/Main/Withdraw/Crop/Quantity/CropsWithdraw
+@onready var withdrawCropLabel: Node = $Main/Interactions/Main/Withdraw/Crop/Quantity/CropAmount
+@onready var withdrawMoneyLabel: Node = $Main/Interactions/Main/Withdraw/Money/Quantity/MoneyAmount
+@onready var withdrawMoneyAmount: Node = $Main/Interactions/Main/Withdraw/Money/Quantity/MoneyWithdraw
+@onready var lossEvent: Node = $Main/Interactions/LossEvent
+@onready var lossEventTag: Node = $Main/Interactions/LossEvent/LossEventTag
 
 #Crop Holdings
 @onready var inventorySpace: int = 50
@@ -66,6 +81,12 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var garlicFarm: Node = $Main/MyFarm/Values/Garlic
 @onready var lettuceHoldings: Node = $Main/CurrentHoldings/Values/Lettuce
 @onready var lettuceFarm: Node = $Main/MyFarm/Values/Lettuce
+@onready var avocadoInt = int(avocadoHoldings.text)
+@onready var tomatoInt = int(tomatoHoldings.text)
+@onready var potatoInt = int(potatoHoldings.text)
+@onready var cucumberInt = int(cucumberHoldings.text)
+@onready var garlicInt = int(garlicHoldings.text)
+@onready var lettuceInt = int(lettuceHoldings.text)
 
 #Cities
 @onready var littleTon: String = "          Littleton"
@@ -114,11 +135,22 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var cropSelected: bool = false
 @onready var selectedCrop = null
 @onready var outOfSpaceVar = false
+@onready var withdrawSelected = false
+@onready var selectCrop = false
+@onready var selectMoney = false
+@onready var toggled = false
+@onready var colorSelector = false
+@onready var selectedColor
 
 func _ready() -> void:
 	titleCaratBlink.play("CaratBlink")
 
 func _process(_delta: float) -> void:
+	if colorSelector:
+		selectedColor = $ChangeColor/ColorPicker.color
+		$ChangeColor/ColorRect.color = selectedColor
+		frameColors()
+
 	match currentMenu:
 		MenuLevel.Title:
 			if Input.is_action_just_pressed("y"):
@@ -156,6 +188,9 @@ func _process(_delta: float) -> void:
 		MenuLevel.Sell:
 			sellCrops()
 		
+		MenuLevel.Withdraw:
+			withdrawFunc()
+		
 		MenuLevel.BankLoan:
 			bankLoanFunc()
 		
@@ -164,6 +199,145 @@ func _process(_delta: float) -> void:
 		
 		MenuLevel.BankDeposit:
 			bankDepositFunc()
+
+func withdrawFunc():
+	if withdrawSelected:
+		if selectCrop:
+			selectWithdraw.visible = false
+			if Input.is_action_just_pressed("a"):
+				currentCrop = Crops.Avocado
+				selectCrop = false
+				withdrawCropContainer.visible = true
+				withdrawCropAmount.grab_focus()
+				withdrawCropLabel.text += " AVOCADOS?"
+			if Input.is_action_just_pressed("t"):
+				currentCrop = Crops.Tomato
+				selectCrop = false
+				withdrawCropContainer.visible = true
+				withdrawCropAmount.grab_focus()
+				withdrawCropLabel.text += " TOMATOES?"
+			if Input.is_action_just_pressed("p"):
+				currentCrop = Crops.Potato
+				selectCrop = false
+				withdrawCropContainer.visible = true
+				withdrawCropAmount.grab_focus()
+				withdrawCropLabel.text += " POTATOES?"
+			if Input.is_action_just_pressed("c"):
+				currentCrop = Crops.Cucumber
+				selectCrop = false
+				withdrawCropContainer.visible = true
+				withdrawCropAmount.grab_focus()
+				withdrawCropLabel.text += " CUCUMBERS?"
+			if Input.is_action_just_pressed("g"):
+				currentCrop = Crops.Garlic
+				selectCrop = false
+				withdrawCropContainer.visible = true
+				withdrawCropAmount.grab_focus()
+				withdrawCropLabel.text += " GARLIC?"
+			if Input.is_action_just_pressed("l"):
+				currentCrop = Crops.Avocado
+				selectCrop = false
+				withdrawCropContainer.visible = true
+				withdrawCropAmount.grab_focus()
+				withdrawCropLabel.text += " LETTUCE?"
+		if !selectCrop:
+			if Input.is_action_just_pressed("enter"):
+				match currentCrop:
+					Crops.Avocado:
+						if int(withdrawCropAmount.text) <= int(avocadoFarm.text):
+							var avocadoFarmInt = int(avocadoFarm.text)
+							avocadoInt += int(withdrawCropAmount.text)
+							avocadoFarmInt -= int(withdrawCropAmount.text)
+							avocadoFarm.text = str(avocadoFarmInt)
+							avocadoHoldings.text = str(avocadoInt)
+							withdrawCropAmount.text = ""
+					Crops.Tomato:
+						if int(withdrawCropAmount.text) <= int(tomatoFarm.text):
+							var tomatoFarmInt = int(tomatoFarm.text)
+							tomatoInt += int(withdrawCropAmount.text)
+							tomatoFarmInt -= int(withdrawCropAmount.text)
+							tomatoFarm.text = str(tomatoFarmInt)
+							tomatoHoldings.text = str(tomatoInt)
+							withdrawCropAmount.text = ""
+					Crops.Potato:
+						if int(withdrawCropAmount.text) <= int(potatoFarm.text):
+							var potatoFarmInt = int(potatoFarm.text)
+							potatoInt += int(withdrawCropAmount.text)
+							potatoFarmInt -= int(withdrawCropAmount.text)
+							potatoFarm.text = str(potatoFarmInt)
+							potatoHoldings.text = str(potatoInt)
+							withdrawCropAmount.text = ""
+					Crops.Cucumber:
+						if int(withdrawCropAmount.text) <= int(cucumberFarm.text):
+							var cucumberFarmInt = int(cucumberFarm.text)
+							cucumberInt += int(withdrawCropAmount.text)
+							cucumberFarmInt -= int(withdrawCropAmount.text)
+							cucumberFarm.text = str(cucumberFarmInt)
+							cucumberHoldings.text = str(cucumberInt)
+							withdrawCropAmount.text = ""
+					Crops.Garlic:
+						if int(withdrawCropAmount.text) <= int(garlicFarm.text):
+							var garlicFarmInt = int(garlicFarm.text)
+							garlicInt += int(withdrawCropAmount.text)
+							garlicFarmInt -= int(withdrawCropAmount.text)
+							garlicFarm.text = str(garlicFarmInt)
+							garlicHoldings.text = str(garlicInt)
+							withdrawCropAmount.text = ""
+					Crops.Lettuce:
+						if int(withdrawCropAmount.text) <= int(lettuceFarm.text):
+							var lettuceFarmInt = int(lettuceFarm.text)
+							lettuceInt += int(withdrawCropAmount.text)
+							lettuceFarmInt -= int(withdrawCropAmount.text)
+							lettuceFarm.text = str(lettuceFarmInt)
+							lettuceHoldings.text = str(lettuceInt)
+							withdrawCropAmount.text = ""
+				withdrawCropAmount.text = ""
+				withdrawCropLabel.text = "HOW MANY "
+				withdrawCropContainer.visible = false
+				selectedCrop = Crops.Unselected
+				withdrawSelected = false
+				withdraw.visible = false
+				withdrawCropsMain.visible = false
+				withdrawMoneyMain.visible = false
+				currentMenu = MenuLevel.Main
+				mainMain.visible = true
+	if !withdrawSelected:
+		if Input.is_action_just_pressed("c"):
+			withdrawCropsMain.visible = true
+			withdrawSelected = true
+			selectCrop = true
+		if Input.is_action_just_pressed("m"):
+			withdrawMoneyMain.visible = true
+			withdrawSelected = true
+			selectMoney = true
+		if selectMoney:
+			selectWithdraw.visible = false
+			withdrawMoneyAmount.grab_focus()
+			var intMoney = int(withdrawMoneyAmount.text)
+			var intBank = int(bankValueLabel.text)
+			if Input.is_action_just_pressed("enter"):
+				if intBank >= intMoney:
+					print("Withdraw money")
+					intBank = intBank - intMoney
+					bankValueLabel.text = str(intBank)
+					withdraw.visible = false
+					withdrawMoneyMain.visible = false
+					withdrawSelected = false
+					selectMoney = false
+					withdrawMoneyAmount.text = ""
+					cheapPrices.visible = true
+					alreadyPoppedUp = false
+					currentMenu = MenuLevel.CheapPrices
+				else:
+					print("Not enough money")
+					withdraw.visible = false
+					withdrawMoneyMain.visible = false
+					withdrawSelected = false
+					selectMoney = false
+					withdrawMoneyAmount.text = ""
+					cheapPrices.visible = true
+					alreadyPoppedUp = false
+					currentMenu = MenuLevel.CheapPrices
 
 func _on_title_carat_blink_animation_finished(_anim_name: StringName) -> void:
 	titleCaratBlink.play("CaratBlink")
@@ -379,7 +553,7 @@ func cheapPricesFunc():
 		alreadyPoppedUp = true
 		mainMain.visible = false
 		cheapPrices.visible = true
-		var random = randi_range(1, 3)
+		var random = randi_range(1, 8)
 		if random == 1:
 			randomOffer = randi_range(1, 6)
 			if randomOffer == 1:
@@ -401,18 +575,73 @@ func cheapPricesFunc():
 				crazyCheapTag.text = "LETTUCE" + crazyCheapTag.text
 				lettucePrice /= 2
 		elif random == 2:
-			currentMenu = MenuLevel.Main
-			cheapPrices.visible = false
-			mainMain.visible = true
+			randomOffer = randi_range(1, 6)
+			if randomOffer == 1:
+				crazyCheapTag.text = "AVOCADOS ARE SELLING FOR INSANE PRICES!"
+				@warning_ignore("narrowing_conversion")
+				avocadoPrice *= 1.5
+			if randomOffer == 2:
+				crazyCheapTag.text = "TOMATOES ARE SELLING FOR INSANE PRICES!"
+				@warning_ignore("narrowing_conversion")
+				tomatoPrice *= 1.5
+			if randomOffer == 3:
+				crazyCheapTag.text = "POTATOES ARE SELLING FOR INSANE PRICES!"
+				@warning_ignore("narrowing_conversion")
+				potatoPrice *= 1.5
+			if randomOffer == 4:
+				crazyCheapTag.text = "CUCUMBERS ARE SELLING FOR INSANE PRICES!"
+				@warning_ignore("narrowing_conversion")
+				cucumberPrice *= 1.5
+			if randomOffer == 5:
+				crazyCheapTag.text = "GARLIC IS SELLING FOR INSANE PRICES!"
+				@warning_ignore("narrowing_conversion")
+				garlicPrice *= 1.5
+			if randomOffer == 6:
+				crazyCheapTag.text = "LETTUCE IS SELLING FOR INSANE PRICES!"
+				@warning_ignore("narrowing_conversion")
+				lettucePrice *= 1.5
 		elif random == 3:
+			cheapPrices.visible = false
+			lossEvent.visible = true
+			randomOffer = randi_range(1, 6)
+			if randomOffer == 1:
+				lossEventTag.text = "You crashed your van and lost some crops!"
+				mediumLoss()
+			if randomOffer == 2:
+				lossEventTag.text = "A rival farmer stole a bunch of your crops!"
+				mediumLoss()
+			if randomOffer == 3:
+				lossEventTag.text = "Some of your crops spoiled and had to be thrown out!"
+				largeLoss()
+			if randomOffer == 4:
+				lossEventTag.text = "A storm flooded your fields and some crops were washed away!"
+				smallLoss()
+			if randomOffer == 5:
+				lossEventTag.text = "Pests got into your crops and destroyed them!"
+				largeLoss()
+			if randomOffer == 6:
+				lossEventTag.text = "A cold front moved in and froze some of your crops!"
+				smallLoss()
+			updateHoldings()
+		elif random == 4 or 5 or 6 or 7 or 8:
 			currentMenu = MenuLevel.Main
 			cheapPrices.visible = false
 			mainMain.visible = true
 	if Input.is_action_just_pressed("any"):
+		lossEventTag.text = ""
 		crazyCheapTag.text = " ARE SELLING FOR CRAZY CHEAP!"
+		lossEvent.visible = false
 		cheapPrices.visible = false
 		mainMain.visible = true
 		currentMenu = MenuLevel.Main
+
+func updateHoldings():
+	avocadoHoldings.text = str(avocadoInt)
+	tomatoHoldings.text = str(tomatoInt)
+	potatoHoldings.text = str(potatoInt)
+	cucumberHoldings.text = str(cucumberInt)
+	garlicHoldings.text = str(garlicInt)
+	lettuceHoldings.text = str(lettuceInt)
 
 func changeLocation():
 	var randiResult = randi_range(1, 2)
@@ -492,6 +721,10 @@ func mainInteraction():
 		mainMain.visible = false
 		travel.visible = true
 		currentMenu = MenuLevel.Travel
+	if Input.is_action_just_pressed("w"):
+		withdraw.visible = true
+		selectWithdraw.visible = true
+		currentMenu = MenuLevel.Withdraw
 
 func growSellToMain():
 	outOfSpaceVar = false
@@ -674,48 +907,48 @@ func growCrops():
 			if int(requestAmount) <= int(affordValue) && inventorySpace >= int(requestAmount) + totalCrops:
 				match currentCrop:
 					Crops.Avocado:
-						var updateHoldings = int(avocadoHoldings.text) + int(requestAmount)
-						avocadoHoldings.text = str(updateHoldings)
+						var updateHoldingsVal = int(avocadoHoldings.text) + int(requestAmount)
+						avocadoHoldings.text = str(updateHoldingsVal)
 						var purchaseCost = int(requestAmount) * int(avocadoPrice)
 						var updateCash = int(playerCash) - int(purchaseCost)
 						playerCashLabel.text = str(updateCash)
 						playerCash = updateCash
 						growSellToMain()
 					Crops.Tomato:
-						var updateHoldings = int(tomatoHoldings.text) + int(requestAmount)
-						tomatoHoldings.text = str(updateHoldings)
+						var updateHoldingsVal = int(tomatoHoldings.text) + int(requestAmount)
+						tomatoHoldings.text = str(updateHoldingsVal)
 						var purchaseCost = int(requestAmount) * int(tomatoPrice)
 						var updateCash = int(playerCash) - int(purchaseCost)
 						playerCashLabel.text = str(updateCash)
 						playerCash = updateCash
 						growSellToMain()
 					Crops.Potato:
-						var updateHoldings = int(potatoHoldings.text) + int(requestAmount)
-						potatoHoldings.text = str(updateHoldings)
+						var updateHoldingsVal = int(potatoHoldings.text) + int(requestAmount)
+						potatoHoldings.text = str(updateHoldingsVal)
 						var purchaseCost = int(requestAmount) * int(potatoPrice)
 						var updateCash = int(playerCash) - int(purchaseCost)
 						playerCashLabel.text = str(updateCash)
 						playerCash = updateCash
 						growSellToMain()
 					Crops.Cucumber:
-						var updateHoldings = int(cucumberHoldings.text) + int(requestAmount)
-						cucumberHoldings.text = str(updateHoldings)
+						var updateHoldingsVal = int(cucumberHoldings.text) + int(requestAmount)
+						cucumberHoldings.text = str(updateHoldingsVal)
 						var purchaseCost = int(requestAmount) * int(cucumberPrice)
 						var updateCash = int(playerCash) - int(purchaseCost)
 						playerCashLabel.text = str(updateCash)
 						playerCash = updateCash
 						growSellToMain()
 					Crops.Garlic:
-						var updateHoldings = int(garlicHoldings.text) + int(requestAmount)
-						garlicHoldings.text = str(updateHoldings)
+						var updateHoldingsVal = int(garlicHoldings.text) + int(requestAmount)
+						garlicHoldings.text = str(updateHoldingsVal)
 						var purchaseCost = int(requestAmount) * int(garlicPrice)
 						var updateCash = int(playerCash) - int(purchaseCost)
 						playerCashLabel.text = str(updateCash)
 						playerCash = updateCash
 						growSellToMain()
 					Crops.Lettuce:
-						var updateHoldings = int(lettuceHoldings.text) + int(requestAmount)
-						lettuceHoldings.text = str(updateHoldings)
+						var updateHoldingsVal = int(lettuceHoldings.text) + int(requestAmount)
+						lettuceHoldings.text = str(updateHoldingsVal)
 						var purchaseCost = int(requestAmount) * int(lettucePrice)
 						var updateCash = int(playerCash) - int(purchaseCost)
 						playerCashLabel.text = str(updateCash)
@@ -781,6 +1014,30 @@ func techValleyPrices():
 	garlicPrice = 300
 	lettucePrice = 75
 
+func smallLoss():
+	avocadoInt *= 0.9
+	tomatoInt *= 0.9
+	potatoInt *= 0.9
+	cucumberInt *= 0.9
+	garlicInt *= 0.9
+	lettuceInt *= 0.9
+
+func mediumLoss():
+	avocadoInt *= 0.8
+	tomatoInt *= 0.8
+	potatoInt *= 0.8
+	cucumberInt *= 0.8
+	garlicInt *= 0.8
+	lettuceInt *= 0.8
+
+func largeLoss():
+	avocadoInt *= 0.7
+	tomatoInt *= 0.7
+	potatoInt *= 0.7
+	cucumberInt *= 0.7
+	garlicInt *= 0.7
+	lettuceInt *= 0.7
+
 func addUpCrops():
 	totalCrops = 0
 	var holding1 = 0
@@ -790,3 +1047,40 @@ func addUpCrops():
 	holding2 = int(cucumberHoldings.text) + int(garlicHoldings.text) + int(lettuceHoldings.text)
 	holdingTotal = holding1 + holding2
 	totalCrops = totalCrops + holdingTotal
+
+func frameColors():
+	$Main/Frame/Bottom.color = selectedColor
+	$Main/Frame/Top.color = selectedColor
+	$Main/Frame/BottomLeft.color = selectedColor
+	$Main/Frame/BottomRight.color = selectedColor
+	$Main/Frame/LeftLeft.color = selectedColor
+	$Main/Frame/Left.color = selectedColor
+	$Main/Frame/RightRight.color = selectedColor
+	$Main/Frame/Right.color = selectedColor
+	$Main/Frame/CenterLeft.color = selectedColor
+	$Main/Frame/CenterRight.color = selectedColor
+	$Main/Frame/TopRight.color = selectedColor
+	$Main/Frame/TopLeft.color = selectedColor
+	$Main/Frame/TopMiddleBottom.color = selectedColor
+	$Main/Frame/TopMiddleTop.color = selectedColor
+	$Main/Frame/TopMiddleLeft.color = selectedColor
+	$Main/Frame/TopMiddleRight.color = selectedColor
+	$Main/Frame/TopLeftLeft.color = selectedColor
+	$Main/Frame/TopLeftRight.color = selectedColor
+	$Main/Frame/TopLeftBottom.color = selectedColor
+	$Main/Frame/TopLeftTop.color = selectedColor
+	$Main/Frame/TopRightLeft.color = selectedColor
+	$Main/Frame/TopRightRight.color = selectedColor
+	$Main/Frame/TopRightTop.color = selectedColor
+	$Main/Frame/TopRightBottom.color = selectedColor
+
+
+func _on_ui_color_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		$ChangeColor/ColorRect.visible = true
+		$ChangeColor/ColorPicker.visible = true
+		colorSelector = true
+	if !toggled_on:
+		$ChangeColor/ColorRect.visible = false
+		$ChangeColor/ColorPicker.visible = false
+		colorSelector = false
