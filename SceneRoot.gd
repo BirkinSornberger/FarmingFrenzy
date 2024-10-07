@@ -1,12 +1,7 @@
 extends Control
 
-#To do:
-#	Final Step: Add a date & 30 day system. Each turn increases the day by 1. At the end of 30 days,
-#	add up money and crops value at average price, then display in a "high score" located in a
-#	Godot resource or something, just some way to persistently save the high score.
-
 #Enum selectors
-enum MenuLevel {Title, Instructions, PopUp, CheapPrices, VanUpgrade, LossEvent, Travel, Grow, Sell, Withdraw, BankLoan, TransferCrops, BankDeposit, Main}
+enum MenuLevel {Title, Instructions, PopUp, CheapPrices, VanUpgrade, LossEvent, Travel, Grow, Sell, Withdraw, BankLoan, TransferCrops, BankDeposit, Main, GameOver}
 @onready var currentMenu = MenuLevel.Title
 
 enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
@@ -60,6 +55,10 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var vanCapacityLabel: Node = $Main/Inventory/CapacityLabel
 @onready var vanUpgrade: Node = $Main/Interactions/VanUpgrade
 @onready var vanUpgradePrompt: Node = $Main/Interactions/VanUpgrade/UpgradePrompt
+@onready var dayValue: Node = $Main/DayCount/Value
+@onready var gameOverNode: Node = $GameOver
+@onready var scoreValue: Node = $GameOver/ScoreValue
+@onready var gameOverAnimator: Node = $GameOver/GameOverAnimator
 
 #Crop Holdings
 @onready var inventorySpace: int = 50
@@ -134,8 +133,12 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var selectedColor
 @onready var vanUpgradeVar = false
 @onready var textColorSelector = false
+@onready var dayValueVar: bool = false
+@onready var dayValueInt: int = 0
 
 func _process(_delta: float) -> void:
+	if dayValueInt == 31:
+		currentMenu = MenuLevel.GameOver
 	if colorSelector:
 		selectedColor = $ChangeColor/ColorPicker.color
 		$ChangeColor/ColorRect.color = selectedColor
@@ -170,6 +173,10 @@ func _process(_delta: float) -> void:
 			cheapPricesFunc()
 
 		MenuLevel.Main:
+			if dayValueVar:
+				dayValueVar = false
+				dayValueInt += 1
+				dayValue.text = str(dayValueInt)
 			mainInteraction()
 		
 		MenuLevel.Travel:
@@ -192,7 +199,22 @@ func _process(_delta: float) -> void:
 		
 		MenuLevel.BankDeposit:
 			bankDepositFunc()
-			
+		
+		MenuLevel.GameOver:
+			$GameOver/GameOverAnimator.play("GameOver")
+			main.visible = false
+			gameOverNode.visible = true
+			var score = playerCash + int(bankValueLabel.text)
+			var avocadoTotal = int(avocadoHoldings.text) + int(avocadoFarm.text)
+			var tomatoTotal = int(tomatoHoldings.text) + int(tomatoFarm.text)
+			var potatoTotal = int(potatoHoldings.text) + int(potatoFarm.text)
+			var cucumberTotal = int(cucumberHoldings.text) + int(cucumberFarm.text)
+			var garlicTotal = int(garlicHoldings.text) + int(garlicFarm.text)
+			var lettuceTotal = int(lettuceHoldings.text) + int(lettuceFarm.text)
+			var cropTotal = avocadoTotal + tomatoTotal + potatoTotal + cucumberTotal + garlicTotal + lettuceTotal
+			var totalScore = score + cropTotal
+			scoreValue.text = str(totalScore)
+
 		MenuLevel.VanUpgrade:
 			if vanUpgradeVar:
 				if Input.is_action_just_pressed("any"):
@@ -200,6 +222,7 @@ func _process(_delta: float) -> void:
 					vanUpgradeVar = false
 					mainMain.visible = true
 					vanUpgrade.visible = false
+					dayValueVar = true
 					currentMenu = MenuLevel.Main
 			if !vanUpgradeVar:
 				if Input.is_action_just_pressed("y"):
@@ -210,6 +233,7 @@ func _process(_delta: float) -> void:
 						vanCapacityLabel.text = str(inventorySpace)
 						mainMain.visible = true
 						vanUpgrade.visible = false
+						dayValueVar = true
 						currentMenu = MenuLevel.Main
 					elif playerCash < 1000:
 						vanUpgradePrompt.text = "YOU CANNOT AFFORD THIS UPGRADE!"
@@ -218,6 +242,7 @@ func _process(_delta: float) -> void:
 					vanUpgradeVar = false
 					mainMain.visible = true
 					vanUpgrade.visible = false
+					dayValueVar = true
 					currentMenu = MenuLevel.Main
 
 func withdrawFunc():
@@ -319,6 +344,7 @@ func withdrawFunc():
 				withdraw.visible = false
 				withdrawCropsMain.visible = false
 				withdrawMoneyMain.visible = false
+				dayValueVar = true
 				currentMenu = MenuLevel.Main
 				mainMain.visible = true
 	if !withdrawSelected:
@@ -667,6 +693,7 @@ func cheapPricesFunc():
 			alreadyPoppedUp = false
 			currentMenu = MenuLevel.VanUpgrade
 		elif random == 5 or 6 or 7 or 8:
+			dayValueVar = true
 			currentMenu = MenuLevel.Main
 			cheapPrices.visible = false
 			mainMain.visible = true
@@ -677,6 +704,7 @@ func cheapPricesFunc():
 		cheapPrices.visible = false
 		mainMain.visible = true
 		alreadyPoppedUp = false
+		dayValueVar = true
 		currentMenu = MenuLevel.Main
 
 func updateHoldings():
@@ -781,6 +809,7 @@ func growSellToMain():
 	affordLabel.text = ""
 	numberToGrow.text = ""
 	numberToSell.text = ""
+	dayValueVar = true
 	currentMenu = MenuLevel.Main
 
 func sellCrops():
@@ -1180,3 +1209,6 @@ func _on_text_color_toggled(toggled_on: bool) -> void:
 		$ChangeColor/ColorPicker.visible = false
 		$ChangeColor/UIColor.disabled = false
 		textColorSelector = false
+
+func _on_game_over_animator_animation_finished(anim_name: StringName) -> void:
+	$GameOver/GameOverAnimator.play("GameOver")
