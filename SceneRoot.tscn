@@ -171,7 +171,7 @@ grow_horizontal = 2
 theme_override_colors/default_color = Color(0, 0.615686, 1, 1)
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 40
-text = "FARMING  FRENZY IS  A  GAME  BASED  ON THE AGGRESSIVE  FARMERS  MARKET. YOU  ARE  A  FARMER  AND  YOUR  GOAL IS TO  BUY & GROW CROPS  FOR  CHEAP  AND SELL FOR  A  PROFIT! BE  CAREFUL THOUGH  AS  THE  GOVERNMENT  IS  ON  THE  TRAIL OF NON-GMO  FARMERS! YOU WILL START OUT WITH  A  LOAN  AND YOUR  GOAL IS  TO  END  WITH  OVER  $1M"
+text = "FARMING  FRENZY IS  A  GAME  BASED  ON THE AGGRESSIVE  FARMERS  MARKET. YOU  ARE  A  FARMER  AND  YOUR  GOAL IS TO  BUY & GROW CROPS  FOR  CHEAP  AND SELL FOR  A  PROFIT! BE  CAREFUL THOUGH  AS  YOU   MAY  LOSE  CROPS  THROUGH  EMERGENCIES! YOU WILL START OUT WITH  A  LOAN  AND YOUR  GOAL IS  TO  END  WITH  OVER  $1M"
 
 [node name="Instructions" type="RichTextLabel" parent="Instructions"]
 layout_mode = 1
@@ -1521,6 +1521,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Title" type="RichTextLabel" parent="GameOver"]
+layout_mode = 0
 offset_left = 276.0
 offset_top = 24.0
 offset_right = 790.0
@@ -1529,20 +1530,41 @@ theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 95
 text = "GAME OVER!"
 
-[node name="ScoreDialog" type="RichTextLabel" parent="GameOver"]
-offset_left = 51.0
+[node name="ScoreDialog1" type="RichTextLabel" parent="GameOver"]
+layout_mode = 0
+offset_left = 258.0
 offset_top = 126.0
-offset_right = 1061.0
+offset_right = 774.0
 offset_bottom = 177.0
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 35
-text = "Your score with current crops, money, and farm holdings:"
+text = "You forfeit any unsold crops!"
+
+[node name="ScoreDialo2" type="RichTextLabel" parent="GameOver"]
+layout_mode = 0
+offset_left = 405.0
+offset_top = 165.0
+offset_right = 606.0
+offset_bottom = 216.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 35
+text = "Your score:"
+
+[node name="Value" type="RichTextLabel" parent="GameOver"]
+layout_mode = 0
+offset_left = 414.0
+offset_top = 258.0
+offset_right = 591.0
+offset_bottom = 309.0
+theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_font_sizes/normal_font_size = 35
 
 [node name="ScoreValue" type="RichTextLabel" parent="GameOver"]
-offset_left = 386.0
-offset_top = 189.0
-offset_right = 659.0
-offset_bottom = 240.0
+layout_mode = 0
+offset_left = 381.0
+offset_top = 207.0
+offset_right = 654.0
+offset_bottom = 258.0
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 35
 text = "0"
@@ -1559,6 +1581,7 @@ offset_right = 85.955
 offset_bottom = 40.0
 
 [node name="LeaderboardTitle" type="RichTextLabel" parent="GameOver/LeaderboardMain"]
+layout_mode = 0
 offset_left = 339.0
 offset_top = 306.0
 offset_right = 579.0
@@ -1568,6 +1591,7 @@ theme_override_font_sizes/normal_font_size = 35
 text = "leaderboard:"
 
 [node name="Leaderboard" type="HBoxContainer" parent="GameOver/LeaderboardMain"]
+layout_mode = 0
 offset_left = 275.0
 offset_top = 357.0
 offset_right = 734.0
@@ -1579,35 +1603,35 @@ clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Littleton" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
+[node name="Name1" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
 text = "AVA"
 fit_content = true
 
-[node name="RuralPlateau" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
+[node name="Name2" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
 text = "AVA"
 fit_content = true
 
-[node name="BigCity" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
+[node name="Name3" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
 text = "AVA"
 fit_content = true
 
-[node name="BigCity2" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
+[node name="Name4" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
 text = "AI"
 fit_content = true
 
-[node name="BigCity3" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
+[node name="Name5" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
@@ -1619,35 +1643,35 @@ clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MountainVille" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
+[node name="Score1" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
 text = "1192345"
 fit_content = true
 
-[node name="DesertVista" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
+[node name="Score2" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
 text = "1045572"
 fit_content = true
 
-[node name="TechValley" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
+[node name="Score3" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
 text = "     948618"
 fit_content = true
 
-[node name="TechValley2" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
+[node name="Score4" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30
 text = "     907465"
 fit_content = true
 
-[node name="TechValley3" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
+[node name="Score5" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_omann")
 theme_override_font_sizes/normal_font_size = 30

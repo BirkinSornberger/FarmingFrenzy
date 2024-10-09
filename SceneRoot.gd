@@ -59,6 +59,7 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var gameOverNode: Node = $GameOver
 @onready var scoreValue: Node = $GameOver/ScoreValue
 @onready var gameOverAnimator: Node = $GameOver/GameOverAnimator
+@onready var gameOverValue: Node = $GameOver/Value
 
 #Crop Holdings
 @onready var inventorySpace: int = 50
@@ -205,15 +206,11 @@ func _process(_delta: float) -> void:
 			main.visible = false
 			gameOverNode.visible = true
 			var score = playerCash + int(bankValueLabel.text)
-			var avocadoTotal = int(avocadoHoldings.text) + int(avocadoFarm.text)
-			var tomatoTotal = int(tomatoHoldings.text) + int(tomatoFarm.text)
-			var potatoTotal = int(potatoHoldings.text) + int(potatoFarm.text)
-			var cucumberTotal = int(cucumberHoldings.text) + int(cucumberFarm.text)
-			var garlicTotal = int(garlicHoldings.text) + int(garlicFarm.text)
-			var lettuceTotal = int(lettuceHoldings.text) + int(lettuceFarm.text)
-			var cropTotal = avocadoTotal + tomatoTotal + potatoTotal + cucumberTotal + garlicTotal + lettuceTotal
-			var totalScore = score + cropTotal
-			scoreValue.text = str(totalScore)
+			scoreValue.text = str(score)
+			if score >= 1000000:
+				gameOverValue.text = "YOU   WIN!"
+			elif score < 1000000:
+				gameOverValue.text = "YOU   LOST!"
 
 		MenuLevel.VanUpgrade:
 			if vanUpgradeVar:
@@ -1146,6 +1143,12 @@ func frameColors():
 	$Main/Frame/TopRightRight.color = selectedColor
 	$Main/Frame/TopRightTop.color = selectedColor
 	$Main/Frame/TopRightBottom.color = selectedColor
+	$GameOver/LeaderboardMain/LeftWall.color = selectedColor
+	$GameOver/LeaderboardMain/RightWall.color = selectedColor
+	$GameOver/LeaderboardMain/TopWall.color = selectedColor
+	$GameOver/LeaderboardMain/BottomWall.color = selectedColor
+	$GameOver/LeaderboardMain/Underline.color = selectedColor
+	$GameOver/LeaderboardMain/CenterDivider.color = selectedColor
 
 func textColor():
 	$Main/Inventory/VanCapacity.add_theme_color_override("default_color", selectedColor)
@@ -1183,7 +1186,74 @@ func textColor():
 	$Main/CurrentHoldings/Cash.add_theme_color_override("default_color", selectedColor)
 	$Main/CurrentHoldings/CashValue.add_theme_color_override("default_color", selectedColor)
 	$Main/Location.add_theme_color_override("default_color", selectedColor)
-
+	$Main/Interactions/Main/Sell/SelectSell.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/Sell/SellAmountMain/Quantity/SellAmount.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/Sell/SellAmountMain/Quantity/NumberToSell.add_theme_color_override("font_color", selectedColor)
+	$Main/Interactions/Main/Grow/SelectGrow.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/Grow/OutOfSpace.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/Grow/GrowAmountMain/Quantity/GrowAmount.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/Grow/GrowAmountMain/AffordAmount.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/Grow/GrowAmountMain/AffordLabel.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/Grow/GrowAmountMain/SelectGrow.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/Grow/GrowAmountMain/Quantity/NumberToGrow.add_theme_color_override("font_color", selectedColor)
+	$Main/Interactions/Main/Withdraw/SelectWithdraw.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/Withdraw/Crop/SelectCrop.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/Withdraw/Crop/Quantity/CropAmount.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/Withdraw/Money/Quantity/MoneyAmount.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/Withdraw/Crop/Quantity/CropsWithdraw.add_theme_color_override("font_color", selectedColor)
+	$Main/Interactions/Main/Withdraw/Money/Quantity/MoneyWithdraw.add_theme_color_override("font_color", selectedColor)
+	$Main/Interactions/Main/CropPrices.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/LeftCropsBox/LeftCrops/Avocados.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/LeftCropsBox/LeftCrops/Tomatoes.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/LeftCropsBox/LeftCrops/Potatoes.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/LeftCropsBox/LeftPrices/AvocadosPrice.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/LeftCropsBox/LeftPrices/TomatoesPrice.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/LeftCropsBox/LeftPrices/PotatoesPrice.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/RightCropsBox/RightCrops/Cucumbers.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/RightCropsBox/RightCrops/Garlic.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/RightCropsBox/RightCrops/Lettuce.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/RightCropsBox/RightPrices/CucumbersPrice.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/RightCropsBox/RightPrices/GarlicPrice.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/RightCropsBox/RightPrices/LettucePrice.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Main/Selection.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/CheapPrices/CrazyCheapTag.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/BankLoan/LoanDeposit.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/BankLoan/LoanDepositConfirm.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/BankLoan/LoanDepositAmount.add_theme_color_override("font_color", selectedColor)
+	$Main/Interactions/TransferCrops/CropTransfer.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/TransferCrops/CropTransferConfirm.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/TransferCrops/CropTransferNumber.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/TransferCrops/CropTransferAmount.add_theme_color_override("font_color", selectedColor)
+	$Main/Interactions/BankDeposit/BankDeposit.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/BankDeposit/BankDepositConfirm.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/BankDeposit/BankDepositAmount.add_theme_color_override("font_color", selectedColor)
+	$Main/Interactions/Travel/SelectCity.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Travel/CitiesBox/LeftCities/Littleton.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Travel/CitiesBox/LeftCities/RuralPlateau.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Travel/CitiesBox/LeftCities/BigCity.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Travel/CitiesBox/RightCities/MountainVille.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Travel/CitiesBox/RightCities/DesertVista.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/Travel/CitiesBox/RightCities/TechValley.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/LossEvent/LossEventTag.add_theme_color_override("default_color", selectedColor)
+	$Main/Interactions/VanUpgrade/UpgradePrompt.add_theme_color_override("default_color", selectedColor)
+	$Main/DayCount/Day.add_theme_color_override("default_color", selectedColor)
+	$Main/DayCount/Value.add_theme_color_override("default_color", selectedColor)
+	$Main/DayCount/OutOf.add_theme_color_override("default_color", selectedColor)
+	$GameOver/Title.add_theme_color_override("default_color", selectedColor)
+	$GameOver/ScoreDialog1.add_theme_color_override("default_color", selectedColor)
+	$GameOver/ScoreDialo2.add_theme_color_override("default_color", selectedColor)
+	$GameOver/ScoreValue.add_theme_color_override("default_color", selectedColor)
+	$GameOver/LeaderboardMain/LeaderboardTitle.add_theme_color_override("default_color", selectedColor)
+	$GameOver/LeaderboardMain/Leaderboard/Names/Name1.add_theme_color_override("default_color", selectedColor)
+	$GameOver/LeaderboardMain/Leaderboard/Names/Name2.add_theme_color_override("default_color", selectedColor)
+	$GameOver/LeaderboardMain/Leaderboard/Names/Name3.add_theme_color_override("default_color", selectedColor)
+	$GameOver/LeaderboardMain/Leaderboard/Names/Name4.add_theme_color_override("default_color", selectedColor)
+	$GameOver/LeaderboardMain/Leaderboard/Names/Name5.add_theme_color_override("default_color", selectedColor)
+	$GameOver/LeaderboardMain/Leaderboard/Scores/Score1.add_theme_color_override("default_color", selectedColor)
+	$GameOver/LeaderboardMain/Leaderboard/Scores/Score2.add_theme_color_override("default_color", selectedColor)
+	$GameOver/LeaderboardMain/Leaderboard/Scores/Score3.add_theme_color_override("default_color", selectedColor)
+	$GameOver/LeaderboardMain/Leaderboard/Scores/Score4.add_theme_color_override("default_color", selectedColor)
+	$GameOver/LeaderboardMain/Leaderboard/Scores/Score5.add_theme_color_override("default_color", selectedColor)
 
 func _on_ui_color_toggled(toggled_on: bool) -> void:
 	if toggled_on:
