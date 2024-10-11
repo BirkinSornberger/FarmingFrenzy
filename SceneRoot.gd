@@ -84,12 +84,12 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var lettuceInt = int(lettuceHoldings.text)
 
 #Cities
-@onready var littleTon: String = "          Littleton"
-@onready var ruralPlateau: String = "   Rural Plateau"
-@onready var bigCity: String = "             Big  City"
-@onready var mountainVille: String = "Mountain Ville"
-@onready var desertVista: String = "     Desert Vista"
-@onready var techValley: String = "       Tech Valley"
+@onready var littleTon: String = "   LITTLETON"
+@onready var ruralPlateau: String = " RURAL PLATEAU"
+@onready var bigCity: String = "   BIG CITY"
+@onready var mountainVille: String = "MOUNTAIN VILLE"
+@onready var desertVista: String = " DESERT VISTA"
+@onready var techValley: String = "  TECH VALLEY"
 
 #Cheap Prices
 @onready var randomOffer
@@ -135,7 +135,7 @@ enum Crops {Unselected, Avocado, Tomato, Potato, Cucumber, Garlic, Lettuce}
 @onready var vanUpgradeVar = false
 @onready var textColorSelector = false
 @onready var dayValueVar: bool = false
-@onready var dayValueInt: int = 0
+@onready var dayValueInt: int = 1
 
 func _process(_delta: float) -> void:
 	if dayValueInt == 31:
@@ -174,10 +174,6 @@ func _process(_delta: float) -> void:
 			cheapPricesFunc()
 
 		MenuLevel.Main:
-			if dayValueVar:
-				dayValueVar = false
-				dayValueInt += 1
-				dayValue.text = str(dayValueInt)
 			mainInteraction()
 		
 		MenuLevel.Travel:
@@ -206,16 +202,17 @@ func _process(_delta: float) -> void:
 			main.visible = false
 			gameOverNode.visible = true
 			var score = playerCash + int(bankValueLabel.text)
+			score = score - int(loanValueLabel.text)
 			scoreValue.text = str(score)
 			if score >= 1000000:
-				gameOverValue.text = "YOU   WIN!"
+				gameOverValue.text = "YOU WIN!"
 			elif score < 1000000:
-				gameOverValue.text = "YOU   LOST!"
+				gameOverValue.text = "YOU LOST!"
 
 		MenuLevel.VanUpgrade:
 			if vanUpgradeVar:
 				if Input.is_action_just_pressed("any"):
-					vanUpgradePrompt.text = "WOULD  YOU   LIKE  TO  UPGRADE  YOUR  VAN  STORAGE  FOR  1000?"
+					vanUpgradePrompt.text = "WOULD YOU LIKE TO UPGRADE YOUR VAN STORAGE FOR 1000?"
 					vanUpgradeVar = false
 					mainMain.visible = true
 					vanUpgrade.visible = false
@@ -459,6 +456,13 @@ func transferCropsFunc():
 					oneShot = false
 					cropSelected = false
 					currentMenu = MenuLevel.PopUp
+				else:
+					transferCrops.visible = false
+					bankDeposit.visible = true
+					cropTransferSwitch()
+					oneShot = false
+					cropSelected = false
+					currentMenu = MenuLevel.PopUp
 		if selectedCrop == "t":
 			if oneShot:
 				cropTransferNumber.text = "HOW MANY TOMATOES?"
@@ -469,6 +473,13 @@ func transferCropsFunc():
 					tomatoHoldings.text = str(valueStore)
 					valueStore = int(tomatoFarm.text) + cropTransferInt
 					tomatoFarm.text = str(valueStore)
+					transferCrops.visible = false
+					bankDeposit.visible = true
+					cropTransferSwitch()
+					oneShot = false
+					cropSelected = false
+					currentMenu = MenuLevel.PopUp
+				else:
 					transferCrops.visible = false
 					bankDeposit.visible = true
 					cropTransferSwitch()
@@ -491,6 +502,13 @@ func transferCropsFunc():
 					oneShot = false
 					cropSelected = false
 					currentMenu = MenuLevel.PopUp
+				else:
+					transferCrops.visible = false
+					bankDeposit.visible = true
+					cropTransferSwitch()
+					oneShot = false
+					cropSelected = false
+					currentMenu = MenuLevel.PopUp
 		if selectedCrop == "c":
 			if oneShot:
 				cropTransferNumber.text = "HOW MANY CUCUMBERS?"
@@ -501,6 +519,13 @@ func transferCropsFunc():
 					cucumberHoldings.text = str(valueStore)
 					valueStore = int(cucumberFarm.text) + cropTransferInt
 					cucumberFarm.text = str(valueStore)
+					transferCrops.visible = false
+					bankDeposit.visible = true
+					cropTransferSwitch()
+					oneShot = false
+					cropSelected = false
+					currentMenu = MenuLevel.PopUp
+				else:
 					transferCrops.visible = false
 					bankDeposit.visible = true
 					cropTransferSwitch()
@@ -523,6 +548,13 @@ func transferCropsFunc():
 					oneShot = false
 					cropSelected = false
 					currentMenu = MenuLevel.PopUp
+				else:
+					transferCrops.visible = false
+					bankDeposit.visible = true
+					cropTransferSwitch()
+					oneShot = false
+					cropSelected = false
+					currentMenu = MenuLevel.PopUp
 		if selectedCrop == "l":
 			if oneShot:
 				cropTransferNumber.text = "HOW MUCH LETTUCE?"
@@ -533,6 +565,13 @@ func transferCropsFunc():
 					lettuceHoldings.text = str(valueStore)
 					valueStore = int(lettuceFarm.text) + cropTransferInt
 					lettuceFarm.text = str(valueStore)
+					transferCrops.visible = false
+					bankDeposit.visible = true
+					cropTransferSwitch()
+					oneShot = false
+					cropSelected = false
+					currentMenu = MenuLevel.PopUp
+				else:
 					transferCrops.visible = false
 					bankDeposit.visible = true
 					cropTransferSwitch()
@@ -662,28 +701,29 @@ func cheapPricesFunc():
 				@warning_ignore("narrowing_conversion")
 				lettucePrice *= 1.5
 		elif random == 3:
-			cheapPrices.visible = false
-			lossEvent.visible = true
-			randomOffer = randi_range(1, 6)
-			if randomOffer == 1:
-				lossEventTag.text = "You crashed your van and lost some crops!"
-				mediumLoss()
-			if randomOffer == 2:
-				lossEventTag.text = "A rival farmer stole a bunch of your crops!"
-				mediumLoss()
-			if randomOffer == 3:
-				lossEventTag.text = "Some of your crops spoiled and had to be thrown out!"
-				largeLoss()
-			if randomOffer == 4:
-				lossEventTag.text = "A storm flooded your fields and some crops were washed away!"
-				smallLoss()
-			if randomOffer == 5:
-				lossEventTag.text = "Pests got into your crops and destroyed them!"
-				largeLoss()
-			if randomOffer == 6:
-				lossEventTag.text = "A cold front moved in and froze some of your crops!"
-				smallLoss()
-			updateHoldings()
+			if dayValueInt > 1:
+				cheapPrices.visible = false
+				lossEvent.visible = true
+				randomOffer = randi_range(1, 6)
+				if randomOffer == 1:
+					lossEventTag.text = "YOU CRASHED YOUR VAN AND LOST SOME CROPS!"
+					mediumLoss()
+				if randomOffer == 2:
+					lossEventTag.text = "A RIVAL FARMER STOLE A BUNCH OF YOUR CROPS!"
+					mediumLoss()
+				if randomOffer == 3:
+					lossEventTag.text = "SOME OF YOUR CROPS SPOILED AND HAD TO BE THROWN OUT!"
+					largeLoss()
+				if randomOffer == 4:
+					lossEventTag.text = "A STORM FLOODED YOUR FIELDS AND SOME CROPS WERE WASHED AWAY!"
+					smallLoss()
+				if randomOffer == 5:
+					lossEventTag.text = "PESTS GOT INTO YOUR CROPS AND DESTROYED THEM!"
+					largeLoss()
+				if randomOffer == 6:
+					lossEventTag.text = "A COLD FRONT MOVED IN AND FROZE SOME OF YOUR CROPS!"
+					smallLoss()
+				updateHoldings()
 		elif random == 4:
 			cheapPrices.visible = false
 			vanUpgrade.visible = true
@@ -712,10 +752,15 @@ func updateHoldings():
 	garlicHoldings.text = str(garlicInt)
 	lettuceHoldings.text = str(lettuceInt)
 
+func incrementDay():
+	dayValueInt += 1
+	dayValue.text = str(dayValueInt)
+
 func changeLocation():
 	var randiResult = randi_range(1, 2)
 	alreadyPoppedUp = false
 	if Input.is_action_just_pressed("l"):
+		incrementDay()
 		littletonPrices()
 		location.text = littleTon
 		travel.visible = false
@@ -726,6 +771,7 @@ func changeLocation():
 			cheapPrices.visible = true
 			currentMenu = MenuLevel.CheapPrices
 	if Input.is_action_just_pressed("r"):
+		incrementDay()
 		ruralPlateauPrices()
 		location.text = ruralPlateau
 		travel.visible = false
@@ -736,6 +782,7 @@ func changeLocation():
 			cheapPrices.visible = true
 			currentMenu = MenuLevel.CheapPrices
 	if Input.is_action_just_pressed("b"):
+		incrementDay()
 		bigCityPrices()
 		location.text = bigCity
 		travel.visible = false
@@ -746,6 +793,7 @@ func changeLocation():
 			cheapPrices.visible = true
 			currentMenu = MenuLevel.CheapPrices
 	if Input.is_action_just_pressed("m"):
+		incrementDay()
 		mountainVillePrices()
 		location.text = mountainVille
 		travel.visible = false
@@ -756,6 +804,7 @@ func changeLocation():
 			cheapPrices.visible = true
 			currentMenu = MenuLevel.CheapPrices
 	if Input.is_action_just_pressed("d"):
+		incrementDay()
 		desertVistaPrices()
 		location.text = desertVista
 		travel.visible = false
@@ -766,6 +815,7 @@ func changeLocation():
 			cheapPrices.visible = true
 			currentMenu = MenuLevel.CheapPrices
 	if Input.is_action_just_pressed("t"):
+		incrementDay()
 		techValleyPrices()
 		location.text = techValley
 		travel.visible = false
@@ -1028,6 +1078,8 @@ func growCrops():
 				outOfSpaceVar = true
 				outOfSpace.visible = true
 				growAmountMain.visible = false
+			elif int(requestAmount) > int(affordValue):
+				growSellToMain()
 	if outOfSpaceVar:
 		if Input.is_action_just_pressed("any"):
 			outOfSpace.visible = false
@@ -1280,5 +1332,5 @@ func _on_text_color_toggled(toggled_on: bool) -> void:
 		$ChangeColor/UIColor.disabled = false
 		textColorSelector = false
 
-func _on_game_over_animator_animation_finished(anim_name: StringName) -> void:
+func _on_game_over_animator_animation_finished(_anim_name: StringName) -> void:
 	$GameOver/GameOverAnimator.play("GameOver")

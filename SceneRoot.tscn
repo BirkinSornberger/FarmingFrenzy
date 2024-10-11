@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://b64uvpbx6u7tj"]
+[gd_scene load_steps=16 format=3 uid="uid://b64uvpbx6u7tj"]
 
 [ext_resource type="Script" path="res://SceneRoot.gd" id="1_hl54y"]
 [ext_resource type="FontFile" uid="uid://bc2k4jdcvkwfs" path="res://ArcadeClassic.ttf" id="1_omann"]
+[ext_resource type="FontFile" uid="uid://c66ylag2lh08b" path="res://MorePerfectDOSVGA.ttf" id="3_0xxc8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfvs6"]
 
@@ -89,13 +90,13 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -151.0
-offset_top = 52.37
-offset_right = 151.0
-offset_bottom = 94.37
+offset_left = -164.0
+offset_top = 64.0
+offset_right = 168.0
+offset_bottom = 106.0
 grow_horizontal = 2
 theme_override_colors/default_color = Color(0.871504, 0.265264, 0.396599, 1)
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 40
 text = "FARMING FRENZY"
 
@@ -104,32 +105,31 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -284.5
-offset_top = 167.095
-offset_right = 284.5
-offset_bottom = 340.095
+offset_left = -284.0
+offset_top = 207.0
+offset_right = 284.0
+offset_bottom = 333.0
 grow_horizontal = 2
 theme_override_colors/default_color = Color(0.870588, 0.266667, 0.396078, 1)
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 40
-text = "						A  game  based  on 
-
-
-the  volatile  farmers  market"
+text = "A GAME BASED ON THE FAST
+  PACED FARMERS MARKET"
 
 [node name="InspiredBy" type="RichTextLabel" parent="TitleScreen"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -277.0
-offset_top = 425.0
-offset_right = 278.0
-offset_bottom = 534.0
+offset_left = -359.0
+offset_top = 419.0
+offset_right = 349.0
+offset_bottom = 528.0
 grow_horizontal = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 40
-text = "			INSPIRED BY DRUG WARS
+bbcode_enabled = true
+text = "    INSPIRED BY DRUG WARS,
 CREATED BY JOHN  E. DELL (1984)"
 
 [node name="Instructions" type="RichTextLabel" parent="TitleScreen"]
@@ -137,15 +137,15 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -267.0
-offset_top = 588.31
-offset_right = 267.0
-offset_bottom = 651.31
+offset_left = -285.0
+offset_top = 592.0
+offset_right = 288.0
+offset_bottom = 655.0
 grow_horizontal = 2
 theme_override_colors/default_color = Color(0, 0.666667, 0.666667, 1)
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 40
-text = "DO  YOU   WANT INSTRUCTIONS  ?"
+text = "DO YOU WANT INSTRUCTIONS?"
 
 [node name="Instructions" type="Control" parent="."]
 visible = false
@@ -163,28 +163,44 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -430.0
+offset_left = -416.0
 offset_top = 130.0
-offset_right = 430.0
-offset_bottom = 490.0
+offset_right = 444.0
+offset_bottom = 388.0
 grow_horizontal = 2
 theme_override_colors/default_color = Color(0, 0.615686, 1, 1)
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 40
-text = "FARMING  FRENZY IS  A  GAME  BASED  ON THE AGGRESSIVE  FARMERS  MARKET. YOU  ARE  A  FARMER  AND  YOUR  GOAL IS TO  BUY & GROW CROPS  FOR  CHEAP  AND SELL FOR  A  PROFIT! BE  CAREFUL THOUGH  AS  YOU   MAY  LOSE  CROPS  THROUGH  EMERGENCIES! YOU WILL START OUT WITH  A  LOAN  AND YOUR  GOAL IS  TO  END  WITH  OVER  $1M"
+text = "YOU ARE A FARMER AND YOUR GOAL IS TO BUY & GROW CROPS FOR CHEAP AND SELL FOR A PROFIT! BE CAREFUL THOUGH  AS DISASTER CAN STRIKE AT ANY MOMENT! YOU WILL START OUT WITH A LOAN  AND YOUR GOAL IS TO END WITH OVER $1M. 
+"
+
+[node name="InstructionDetails2" type="RichTextLabel" parent="Instructions"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -416.0
+offset_top = 411.0
+offset_right = 456.0
+offset_bottom = 545.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0.615686, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
+theme_override_font_sizes/normal_font_size = 40
+text = "TO NAVIGATE MENUS, PRESS THE KEYBOARD KEY CORRESPONDING TO THE FIRST LETTER IN THE WORD YOU WISH TO SELECT"
 
 [node name="Instructions" type="RichTextLabel" parent="Instructions"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -214.0
+offset_left = -251.0
 offset_top = 600.0
-offset_right = 214.0
+offset_right = 264.0
 offset_bottom = 642.0
 grow_horizontal = 2
 theme_override_colors/default_color = Color(0, 0.666667, 0.666667, 1)
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 40
 text = "PRESS ANY KEY TO BEGIN"
 
@@ -210,7 +226,7 @@ offset_left = -484.0
 offset_top = 4.0
 offset_right = -418.0
 offset_bottom = 46.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 35
 text = "Day"
 
@@ -222,22 +238,22 @@ offset_top = 6.0
 offset_right = -370.0
 offset_bottom = 42.0
 size_flags_horizontal = 3
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 35
-text = "0"
+text = "1"
 fit_content = true
 
 [node name="OutOf" type="RichTextLabel" parent="Main/DayCount"]
 layout_direction = 2
 layout_mode = 2
-offset_left = -372.0
-offset_top = -3.0
-offset_right = -311.0
-offset_bottom = 45.0
+offset_left = -369.0
+offset_top = 6.0
+offset_right = -270.0
+offset_bottom = 54.0
 size_flags_horizontal = 3
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 35
-text = "/  30"
+text = "/30"
 fit_content = true
 
 [node name="Inventory" type="Control" parent="Main"]
@@ -248,10 +264,11 @@ offset_bottom = 40.0
 
 [node name="VanCapacity" type="RichTextLabel" parent="Main/Inventory"]
 layout_mode = 0
-offset_left = 21.0
-offset_right = 357.0
-offset_bottom = 42.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+offset_left = -18.195
+offset_top = 9.0
+offset_right = 356.805
+offset_bottom = 51.0
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "CURRENT VAN CAPACITY:"
 
@@ -261,7 +278,7 @@ offset_left = 339.0
 offset_top = 9.0
 offset_right = 408.0
 offset_bottom = 51.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "50"
 
@@ -469,9 +486,9 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_left = -342.0
 offset_top = 51.0
-offset_right = -228.0
+offset_right = -219.0
 offset_bottom = 84.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "MY FARM"
 
@@ -492,42 +509,42 @@ grow_vertical = 2
 
 [node name="Avocados" type="RichTextLabel" parent="Main/MyFarm/FarmCrops"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "Avocados"
 fit_content = true
 
 [node name="Tomatoes" type="RichTextLabel" parent="Main/MyFarm/FarmCrops"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "Tomatoes"
 fit_content = true
 
 [node name="Potatoes" type="RichTextLabel" parent="Main/MyFarm/FarmCrops"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "Potatoes"
 fit_content = true
 
 [node name="Cucumbers" type="RichTextLabel" parent="Main/MyFarm/FarmCrops"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "Cucumbers"
 fit_content = true
 
 [node name="Garlic" type="RichTextLabel" parent="Main/MyFarm/FarmCrops"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "Garlic"
 fit_content = true
 
 [node name="Lettuce" type="RichTextLabel" parent="Main/MyFarm/FarmCrops"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "Lettuce"
 fit_content = true
@@ -548,14 +565,14 @@ grow_vertical = 2
 
 [node name="Avocados" type="RichTextLabel" parent="Main/MyFarm/Values"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
 fit_content = true
 
 [node name="Tomatoes" type="RichTextLabel" parent="Main/MyFarm/Values"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "0
 "
@@ -563,28 +580,28 @@ fit_content = true
 
 [node name="Potatoes" type="RichTextLabel" parent="Main/MyFarm/Values"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
 fit_content = true
 
 [node name="Cucumbers" type="RichTextLabel" parent="Main/MyFarm/Values"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
 fit_content = true
 
 [node name="Garlic" type="RichTextLabel" parent="Main/MyFarm/Values"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
 fit_content = true
 
 [node name="Lettuce" type="RichTextLabel" parent="Main/MyFarm/Values"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
 fit_content = true
@@ -595,7 +612,7 @@ offset_left = -427.35
 offset_top = 328.925
 offset_right = -346.35
 offset_bottom = 361.925
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "BANK"
 
@@ -605,7 +622,7 @@ offset_left = -174.0
 offset_top = 328.925
 offset_right = 6.0
 offset_bottom = 370.925
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
 
@@ -615,7 +632,7 @@ offset_left = -427.35
 offset_top = 355.225
 offset_right = -346.35
 offset_bottom = 388.225
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "LOAN"
 
@@ -625,7 +642,7 @@ offset_left = -174.0
 offset_top = 355.225
 offset_right = 6.0
 offset_bottom = 397.225
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "15000"
 
@@ -638,9 +655,9 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_left = 192.0
 offset_top = 51.0
-offset_right = 453.0
+offset_right = 471.0
 offset_bottom = 84.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "CURRENT HOLDINGS"
 
@@ -657,42 +674,42 @@ grow_vertical = 2
 
 [node name="Avocados" type="RichTextLabel" parent="Main/CurrentHoldings/Holdings"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "Avocados"
 fit_content = true
 
 [node name="Tomatoes" type="RichTextLabel" parent="Main/CurrentHoldings/Holdings"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "Tomatoes"
 fit_content = true
 
 [node name="Potatoes" type="RichTextLabel" parent="Main/CurrentHoldings/Holdings"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "Potatoes"
 fit_content = true
 
 [node name="Cucumbers" type="RichTextLabel" parent="Main/CurrentHoldings/Holdings"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "Cucumbers"
 fit_content = true
 
 [node name="Garlic" type="RichTextLabel" parent="Main/CurrentHoldings/Holdings"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "Garlic"
 fit_content = true
 
 [node name="Lettuce" type="RichTextLabel" parent="Main/CurrentHoldings/Holdings"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "Lettuce"
 fit_content = true
@@ -714,14 +731,14 @@ grow_vertical = 2
 
 [node name="Avocados" type="RichTextLabel" parent="Main/CurrentHoldings/Values"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
 fit_content = true
 
 [node name="Tomatoes" type="RichTextLabel" parent="Main/CurrentHoldings/Values"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "0
 "
@@ -729,28 +746,28 @@ fit_content = true
 
 [node name="Potatoes" type="RichTextLabel" parent="Main/CurrentHoldings/Values"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
 fit_content = true
 
 [node name="Cucumbers" type="RichTextLabel" parent="Main/CurrentHoldings/Values"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
 fit_content = true
 
 [node name="Garlic" type="RichTextLabel" parent="Main/CurrentHoldings/Values"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
 fit_content = true
 
 [node name="Lettuce" type="RichTextLabel" parent="Main/CurrentHoldings/Values"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "0"
 fit_content = true
@@ -761,7 +778,7 @@ offset_left = 87.0
 offset_top = 355.225
 offset_right = 168.0
 offset_bottom = 388.225
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "CASH"
 
@@ -771,7 +788,7 @@ offset_left = 339.0
 offset_top = 355.225
 offset_right = 519.0
 offset_bottom = 397.225
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "2500"
 
@@ -799,9 +816,9 @@ offset_left = -465.0
 offset_top = 594.0
 offset_right = 210.0
 offset_bottom = 639.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "WHAT WOULD  YOU   LIKE  TO  SELL?"
+text = "WHAT WOULD YOU LIKE TO SELL?"
 
 [node name="SellAmountMain" type="Control" parent="Main/Interactions/Main/Sell"]
 layout_mode = 3
@@ -815,24 +832,24 @@ layout_direction = 2
 layout_mode = 0
 offset_left = -464.0
 offset_top = 594.0
-offset_right = 811.0
-offset_bottom = 639.0
+offset_right = 966.0
+offset_bottom = 626.0
 alignment = 1
 
 [node name="SellAmount" type="RichTextLabel" parent="Main/Interactions/Main/Sell/SellAmountMain/Quantity"]
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "HOW MANY CUCUMBERS WOULD YOU LIKE TO sell?"
+text = "HOW MANY CUCUMBERS WOULD YOU LIKE TO SELL?"
 
 [node name="NumberToSell" type="LineEdit" parent="Main/Interactions/Main/Sell/SellAmountMain/Quantity"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
 theme_override_constants/caret_width = 0
-theme_override_fonts/font = ExtResource("1_omann")
+theme_override_fonts/font = ExtResource("3_0xxc8")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
@@ -858,23 +875,23 @@ offset_bottom = 240.53
 visible = false
 layout_mode = 0
 offset_left = -465.0
-offset_top = 392.63
+offset_top = 386.725
 offset_right = 210.0
-offset_bottom = 437.63
-theme_override_fonts/normal_font = ExtResource("1_omann")
+offset_bottom = 431.725
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "WHAT WOULD  YOU   LIKE  TO  GROW?"
+text = "WHAT WOULD YOU LIKE TO GROW?"
 
 [node name="OutOfSpace" type="RichTextLabel" parent="Main/Interactions/Main/Grow"]
 visible = false
 layout_mode = 0
 offset_left = -465.0
-offset_top = 429.0
-offset_right = 495.0
-offset_bottom = 474.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+offset_top = 423.0
+offset_right = 426.0
+offset_bottom = 486.0
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "YOU  DO  NOT  HAVE  ENOUGH  SPACE  IN  YOUR  VAN! SELL SOME  CROPS  FIRST!"
+text = "YOU DO NOT HAVE ENOUGH SPACE IN YOUR VAN! SELL SOME CROPS FIRST!"
 
 [node name="GrowAmountMain" type="Control" parent="Main/Interactions/Main/Grow"]
 visible = false
@@ -887,16 +904,16 @@ clip_contents = true
 layout_direction = 2
 layout_mode = 0
 offset_left = -464.0
-offset_top = 394.845
-offset_right = 811.0
-offset_bottom = 439.845
+offset_top = 395.0
+offset_right = 996.0
+offset_bottom = 440.0
 alignment = 1
 
 [node name="GrowAmount" type="RichTextLabel" parent="Main/Interactions/Main/Grow/GrowAmountMain/Quantity"]
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "HOW MANY CUCUMBERS WOULD YOU LIKE TO GROW?"
 
@@ -923,20 +940,20 @@ caret_blink_interval = 1.35
 [node name="AffordAmount" type="RichTextLabel" parent="Main/Interactions/Main/Grow/GrowAmountMain"]
 layout_mode = 0
 offset_left = -465.0
-offset_top = 429.075
+offset_top = 429.0
 offset_right = 210.0
-offset_bottom = 474.075
-theme_override_fonts/normal_font = ExtResource("1_omann")
+offset_bottom = 464.0
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "YOU  CAN  AFFORD  TO  GROW"
+text = "YOU CAN AFFORD TO GROW"
 
 [node name="AffordLabel" type="RichTextLabel" parent="Main/Interactions/Main/Grow/GrowAmountMain"]
 layout_mode = 0
-offset_left = -132.0
-offset_top = 420.47
-offset_right = 543.0
-offset_bottom = 465.47
-theme_override_fonts/normal_font = ExtResource("1_omann")
+offset_left = -84.0
+offset_top = 429.47
+offset_right = 591.0
+offset_bottom = 474.47
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "(0)"
 
@@ -947,9 +964,9 @@ offset_left = -465.0
 offset_top = 392.63
 offset_right = 210.0
 offset_bottom = 437.63
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "WHAT WOULD  YOU   LIKE  TO  GROW?"
+text = "WHAT WOULD YOU LIKE TO GROW?"
 
 [node name="Withdraw" type="Control" parent="Main/Interactions/Main"]
 visible = false
@@ -963,11 +980,11 @@ visible = false
 layout_mode = 0
 offset_left = -465.0
 offset_top = 395.0
-offset_right = 210.0
+offset_right = 253.0
 offset_bottom = 440.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "WOULD  YOU   LIKE  TO  WITHDRAW  CROPS  OR  MONEY?"
+text = "WOULD YOU LIKE TO WITHDRAW CROPS OR MONEY?"
 
 [node name="Crop" type="Control" parent="Main/Interactions/Main/Withdraw"]
 visible = false
@@ -981,7 +998,7 @@ offset_left = -465.0
 offset_top = 395.0
 offset_right = 210.0
 offset_bottom = 440.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "WHICH  CROP  TO  WITHDRAW?"
 
@@ -992,24 +1009,24 @@ layout_direction = 2
 layout_mode = 0
 offset_left = -464.0
 offset_top = 423.0
-offset_right = 811.0
-offset_bottom = 468.0
+offset_right = 756.0
+offset_bottom = 454.0
 alignment = 1
 
 [node name="CropAmount" type="RichTextLabel" parent="Main/Interactions/Main/Withdraw/Crop/Quantity"]
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "HOW  MANY"
+text = "HOW MANY"
 
 [node name="CropsWithdraw" type="LineEdit" parent="Main/Interactions/Main/Withdraw/Crop/Quantity"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
 theme_override_constants/caret_width = 0
-theme_override_fonts/font = ExtResource("1_omann")
+theme_override_fonts/font = ExtResource("3_0xxc8")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
@@ -1031,29 +1048,30 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Quantity" type="HBoxContainer" parent="Main/Interactions/Main/Withdraw/Money"]
+visible = false
 clip_contents = true
 layout_direction = 2
 layout_mode = 0
 offset_left = -464.0
 offset_top = 423.0
-offset_right = 811.0
-offset_bottom = 468.0
+offset_right = 966.0
+offset_bottom = 454.0
 alignment = 1
 
 [node name="MoneyAmount" type="RichTextLabel" parent="Main/Interactions/Main/Withdraw/Money/Quantity"]
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "HOW  MUCH  MONEY  WOULD  YOU  LIKE  TO  WITHDRAW?"
+text = "HOW MUCH MONEY WOULD YOU LIKE TO WITHDRAW?"
 
 [node name="MoneyWithdraw" type="LineEdit" parent="Main/Interactions/Main/Withdraw/Money/Quantity"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
 theme_override_constants/caret_width = 0
-theme_override_fonts/font = ExtResource("1_omann")
+theme_override_fonts/font = ExtResource("3_0xxc8")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
@@ -1072,9 +1090,9 @@ caret_blink_interval = 1.35
 layout_mode = 0
 offset_left = -465.0
 offset_top = 411.0
-offset_right = 303.0
+offset_right = 444.0
 offset_bottom = 456.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "HEY FARMER, THE PRICES FOR BUNDLES OF CROPS HERE ARE:"
 
@@ -1093,21 +1111,21 @@ size_flags_horizontal = 3
 
 [node name="Avocados" type="RichTextLabel" parent="Main/Interactions/Main/LeftCropsBox/LeftCrops"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "AVOCADOS"
 fit_content = true
 
 [node name="Tomatoes" type="RichTextLabel" parent="Main/Interactions/Main/LeftCropsBox/LeftCrops"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "TOMATOES"
 fit_content = true
 
 [node name="Potatoes" type="RichTextLabel" parent="Main/Interactions/Main/LeftCropsBox/LeftCrops"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "POTATOES"
 fit_content = true
@@ -1119,21 +1137,21 @@ size_flags_vertical = 0
 
 [node name="AvocadosPrice" type="RichTextLabel" parent="Main/Interactions/Main/LeftCropsBox/LeftPrices"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "1000"
 fit_content = true
 
 [node name="TomatoesPrice" type="RichTextLabel" parent="Main/Interactions/Main/LeftCropsBox/LeftPrices"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "500"
 fit_content = true
 
 [node name="PotatoesPrice" type="RichTextLabel" parent="Main/Interactions/Main/LeftCropsBox/LeftPrices"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "300"
 fit_content = true
@@ -1153,21 +1171,21 @@ size_flags_horizontal = 3
 
 [node name="Cucumbers" type="RichTextLabel" parent="Main/Interactions/Main/RightCropsBox/RightCrops"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "CUCUMBERS"
 fit_content = true
 
 [node name="Garlic" type="RichTextLabel" parent="Main/Interactions/Main/RightCropsBox/RightCrops"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "GARLIC"
 fit_content = true
 
 [node name="Lettuce" type="RichTextLabel" parent="Main/Interactions/Main/RightCropsBox/RightCrops"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "LETTUCE"
 fit_content = true
@@ -1179,21 +1197,21 @@ size_flags_vertical = 0
 
 [node name="CucumbersPrice" type="RichTextLabel" parent="Main/Interactions/Main/RightCropsBox/RightPrices"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "250"
 fit_content = true
 
 [node name="GarlicPrice" type="RichTextLabel" parent="Main/Interactions/Main/RightCropsBox/RightPrices"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "100"
 fit_content = true
 
 [node name="LettucePrice" type="RichTextLabel" parent="Main/Interactions/Main/RightCropsBox/RightPrices"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "50"
 fit_content = true
@@ -1201,12 +1219,12 @@ fit_content = true
 [node name="Selection" type="RichTextLabel" parent="Main/Interactions/Main"]
 layout_mode = 0
 offset_left = -465.0
-offset_top = 550.66
-offset_right = 210.0
-offset_bottom = 592.66
-theme_override_fonts/normal_font = ExtResource("1_omann")
+offset_top = 551.0
+offset_right = 411.0
+offset_bottom = 593.0
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "DO YOU  WISH  TO GROW, SELL,  LEAVE  OR   WITHDRAW?"
+text = "DO YOU WISH TO GROW, SELL, LEAVE OR WITHDRAW?"
 
 [node name="CheapPrices" type="Control" parent="Main/Interactions"]
 visible = false
@@ -1220,7 +1238,7 @@ offset_left = -465.0
 offset_top = 420.0
 offset_right = 210.0
 offset_bottom = 453.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = " ARE SELLING FOR CRAZY CHEAP!"
 
@@ -1234,34 +1252,34 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_left = -465.0
 offset_top = 411.0
-offset_right = 210.0
-offset_bottom = 456.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+offset_right = 381.0
+offset_bottom = 447.0
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "WOULD YOU  LIKE  TO  MAKE A PAYMENT ON YOUR LOAN?"
+text = "WOULD YOU LIKE TO MAKE A PAYMENT ON YOUR LOAN?"
 
 [node name="LoanDepositConfirm" type="RichTextLabel" parent="Main/Interactions/BankLoan"]
 visible = false
 layout_mode = 0
 offset_left = -465.0
 offset_top = 411.0
-offset_right = 210.0
-offset_bottom = 456.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+offset_right = 133.0
+offset_bottom = 447.0
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "HOW  MUCH  WOULD  YOU   LIKE  TO PAY  ON YOUR  LOAN?"
+text = "HOW MUCH WOULD YOU LIKE TO PAY OFF?"
 
 [node name="LoanDepositAmount" type="LineEdit" parent="Main/Interactions/BankLoan"]
 visible = false
 layout_mode = 0
-offset_left = 189.0
-offset_top = 420.0
-offset_right = 528.0
-offset_bottom = 451.0
+offset_left = 146.0
+offset_top = 410.0
+offset_right = 485.0
+offset_bottom = 441.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 theme_override_constants/caret_width = 0
-theme_override_fonts/font = ExtResource("1_omann")
+theme_override_fonts/font = ExtResource("3_0xxc8")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
@@ -1286,11 +1304,11 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_left = -465.0
 offset_top = 411.0
-offset_right = 261.0
-offset_bottom = 456.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+offset_right = 376.0
+offset_bottom = 445.0
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "WOULD YOU  LIKE  TO  TRANSFER CROPS TO YOUR FARM?"
+text = "WOULD YOU LIKE TO TRANSFER CROPS TO YOUR FARM?"
 
 [node name="CropTransferConfirm" type="RichTextLabel" parent="Main/Interactions/TransferCrops"]
 visible = false
@@ -1298,8 +1316,8 @@ layout_mode = 0
 offset_left = -465.0
 offset_top = 411.0
 offset_right = 210.0
-offset_bottom = 456.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+offset_bottom = 445.0
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "WHAT CROPS WOULD YOU LIKE TO TRANSFER?"
 
@@ -1307,20 +1325,20 @@ text = "WHAT CROPS WOULD YOU LIKE TO TRANSFER?"
 visible = false
 layout_mode = 0
 offset_left = -465.0
-offset_top = 437.99
+offset_top = 438.0
 offset_right = 210.0
-offset_bottom = 482.99
-theme_override_fonts/normal_font = ExtResource("1_omann")
+offset_bottom = 470.0
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "HOW  MANY "
+text = "HOW MANY "
 
 [node name="CropTransferAmount" type="LineEdit" parent="Main/Interactions/TransferCrops"]
 visible = false
 layout_mode = 0
 offset_left = 189.0
-offset_top = 447.0
+offset_top = 438.0
 offset_right = 528.0
-offset_bottom = 478.0
+offset_bottom = 469.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 theme_override_constants/caret_width = 0
@@ -1349,34 +1367,34 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_left = -465.0
 offset_top = 411.0
-offset_right = 261.0
+offset_right = 386.0
 offset_bottom = 456.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "WOULD YOU  LIKE  TO  MAKE  A  DEPOSIT IN THE BANK?"
+text = "WOULD YOU LIKE TO MAKE A DEPOSIT IN THE BANK?"
 
 [node name="BankDepositConfirm" type="RichTextLabel" parent="Main/Interactions/BankDeposit"]
 visible = false
 layout_mode = 0
 offset_left = -465.0
 offset_top = 411.0
-offset_right = 279.0
+offset_right = 501.0
 offset_bottom = 456.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "HOW  MUCH  WOULD  YOU   LIKE  TO DEPOSIT  IN  YOUR  BANK?"
+text = "HOW MUCH WOULD YOU LIKE TO DEPOSIT IN YOUR BANK?"
 
 [node name="BankDepositAmount" type="LineEdit" parent="Main/Interactions/BankDeposit"]
 visible = false
 layout_mode = 0
-offset_left = 254.0
-offset_top = 420.0
-offset_right = 525.0
-offset_bottom = 451.0
+offset_left = -465.0
+offset_top = 445.0
+offset_right = -194.0
+offset_bottom = 476.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 theme_override_constants/caret_width = 0
-theme_override_fonts/font = ExtResource("1_omann")
+theme_override_fonts/font = ExtResource("3_0xxc8")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jfvs6")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_jgjvn")
@@ -1401,18 +1419,18 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_left = -465.0
 offset_top = 411.0
-offset_right = 210.0
+offset_right = 308.0
 offset_bottom = 456.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "SELECT THE  CITY  YOU'D  LIKE  TO  TRAVEL TO:"
+text = "SELECT THE CITY YOU'D LIKE TO TRAVEL TO:"
 
 [node name="CitiesBox" type="HBoxContainer" parent="Main/Interactions/Travel"]
 layout_mode = 0
-offset_left = -200.365
+offset_left = -200.0
 offset_top = 466.0
-offset_right = 258.635
-offset_bottom = 604.0
+offset_right = 295.0
+offset_bottom = 575.0
 alignment = 1
 
 [node name="LeftCities" type="VBoxContainer" parent="Main/Interactions/Travel/CitiesBox"]
@@ -1422,23 +1440,23 @@ size_flags_horizontal = 3
 
 [node name="Littleton" type="RichTextLabel" parent="Main/Interactions/Travel/CitiesBox/LeftCities"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "LITTLETON"
 fit_content = true
 
 [node name="RuralPlateau" type="RichTextLabel" parent="Main/Interactions/Travel/CitiesBox/LeftCities"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "RURAL PLATEAU"
 fit_content = true
 
 [node name="BigCity" type="RichTextLabel" parent="Main/Interactions/Travel/CitiesBox/LeftCities"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "BIG  CITY"
+text = "BIG CITY"
 fit_content = true
 
 [node name="RightCities" type="VBoxContainer" parent="Main/Interactions/Travel/CitiesBox"]
@@ -1448,21 +1466,21 @@ size_flags_horizontal = 3
 
 [node name="MountainVille" type="RichTextLabel" parent="Main/Interactions/Travel/CitiesBox/RightCities"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "MOUNTAIN VILLE"
 fit_content = true
 
 [node name="DesertVista" type="RichTextLabel" parent="Main/Interactions/Travel/CitiesBox/RightCities"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "DESERT VISTA"
 fit_content = true
 
 [node name="TechValley" type="RichTextLabel" parent="Main/Interactions/Travel/CitiesBox/RightCities"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "TECH VALLEY"
 fit_content = true
@@ -1479,7 +1497,7 @@ offset_left = -465.0
 offset_top = 420.0
 offset_right = 522.0
 offset_bottom = 495.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 
 [node name="VanUpgrade" type="Control" parent="Main/Interactions"]
@@ -1492,25 +1510,25 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_left = -465.0
 offset_top = 411.0
-offset_right = 387.0
+offset_right = 436.0
 offset_bottom = 456.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "WOULD  YOU   LIKE  TO  UPGRADE  YOUR  VAN  STORAGE  FOR  1000?"
+text = "WOULD YOU LIKE TO UPGRADE YOUR VAN STORAGE FOR 1000?"
 
 [node name="Location" type="RichTextLabel" parent="Main"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -83.0
-offset_top = 54.0
-offset_right = 100.0
-offset_bottom = 80.0
+offset_left = -84.0
+offset_top = 60.0
+offset_right = 106.0
+offset_bottom = 86.0
 grow_horizontal = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
-theme_override_font_sizes/normal_font_size = 24
-text = "       Tech Valley"
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
+theme_override_font_sizes/normal_font_size = 22
+text = "   LITTLETON"
 fit_content = true
 scroll_active = false
 
@@ -1522,31 +1540,31 @@ offset_bottom = 40.0
 
 [node name="Title" type="RichTextLabel" parent="GameOver"]
 layout_mode = 0
-offset_left = 276.0
+offset_left = 255.0
 offset_top = 24.0
-offset_right = 790.0
+offset_right = 789.0
 offset_bottom = 126.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 95
 text = "GAME OVER!"
 
 [node name="ScoreDialog1" type="RichTextLabel" parent="GameOver"]
 layout_mode = 0
-offset_left = 258.0
+offset_left = 225.0
 offset_top = 126.0
-offset_right = 774.0
+offset_right = 810.0
 offset_bottom = 177.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 35
-text = "You forfeit any unsold crops!"
+text = "YOU FORFEIT ANY UNSOLD CROPS!"
 
 [node name="ScoreDialo2" type="RichTextLabel" parent="GameOver"]
 layout_mode = 0
 offset_left = 405.0
 offset_top = 165.0
-offset_right = 606.0
-offset_bottom = 216.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+offset_right = 630.0
+offset_bottom = 207.0
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 35
 text = "Your score:"
 
@@ -1563,9 +1581,9 @@ theme_override_font_sizes/normal_font_size = 35
 layout_mode = 0
 offset_left = 381.0
 offset_top = 207.0
-offset_right = 654.0
+offset_right = 825.0
 offset_bottom = 258.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 35
 text = "0"
 
@@ -1582,19 +1600,19 @@ offset_bottom = 40.0
 
 [node name="LeaderboardTitle" type="RichTextLabel" parent="GameOver/LeaderboardMain"]
 layout_mode = 0
-offset_left = 339.0
-offset_top = 306.0
-offset_right = 579.0
-offset_bottom = 357.0
-theme_override_fonts/normal_font = ExtResource("1_omann")
+offset_left = 338.0
+offset_top = 315.0
+offset_right = 578.0
+offset_bottom = 366.0
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 35
-text = "leaderboard:"
+text = "LEADERBOARD:"
 
 [node name="Leaderboard" type="HBoxContainer" parent="GameOver/LeaderboardMain"]
 layout_mode = 0
 offset_left = 275.0
 offset_top = 357.0
-offset_right = 734.0
+offset_right = 746.0
 offset_bottom = 537.0
 alignment = 1
 
@@ -1605,35 +1623,35 @@ size_flags_horizontal = 3
 
 [node name="Name1" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "AVA"
 fit_content = true
 
 [node name="Name2" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "AVA"
 fit_content = true
 
 [node name="Name3" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "AVA"
 fit_content = true
 
 [node name="Name4" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "AI"
 fit_content = true
 
 [node name="Name5" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Names"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "GUEST"
 fit_content = true
@@ -1645,37 +1663,37 @@ size_flags_horizontal = 3
 
 [node name="Score1" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "1192345"
 fit_content = true
 
 [node name="Score2" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
 text = "1045572"
 fit_content = true
 
 [node name="Score3" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "     948618"
+text = "948618"
 fit_content = true
 
 [node name="Score4" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "     907465"
+text = "907465"
 fit_content = true
 
 [node name="Score5" type="RichTextLabel" parent="GameOver/LeaderboardMain/Leaderboard/Scores"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("1_omann")
+theme_override_fonts/normal_font = ExtResource("3_0xxc8")
 theme_override_font_sizes/normal_font_size = 30
-text = "     879824"
+text = "879824"
 fit_content = true
 
 [node name="LeftWall" type="ColorRect" parent="GameOver/LeaderboardMain"]

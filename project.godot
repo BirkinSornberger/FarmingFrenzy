@@ -21,6 +21,19 @@ window/size/viewport_width=1018
 window/size/viewport_height=687
 window/stretch/mode="canvas_items"
 
+[importer_defaults]
+
+font_data_dynamic={
+"compress": false,
+"generate_mipmaps": true
+}
+font_data_bmfont={
+"compress": false
+}
+font_data_image={
+"compress": false
+}
+
 [input]
 
 g={
