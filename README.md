@@ -4,7 +4,7 @@ Be careful though, as you can crash your van, your food can rot, and multiple ot
 Pay off your bank loan and stack up as much money as you can before one month passes! (Each turn is one day)
 
 I created this as a minigame inside of a game. Feel free to use the terrible code, or the entire game itself.
-I do ask that you give credit to me if you use a large percentage of my work, especially if you copy/paste the game.
-Other than that, feel free to use this game and source code as you please!
+I do not need any credit, and you may use this game or code in any way you please, for profit or not, this project
+is completely open and free to use.
 
-(Many of these functions are not implemented in the current state, the game is however playable in a basic state)
+The game likely has a few bugs, and my code was terrible. But if you wish to use it, feel free.
